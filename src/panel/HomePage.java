@@ -1,21 +1,26 @@
+package panel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 
-public class HomePage extends JFrame {
-    HomePage() {
-        this.setTitle("PooperMon");
-        this.setSize(1920, 1080);
+public class HomePage extends JPanel {
+    public HomePage(CardLayout cardLayoutm, JPanel mainPanel) {
         this.setLayout(null);
 
+        //backgroudnya
         Image back = new ImageIcon("C:\\Users\\adksp\\Downloads\\Sprites\\Heading.jpg").getImage();
 
-        JPanel panel = new JPanel() {
+        //panel 1, homepage
+        JPanel bgPanel = new JPanel(){
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(back, 0, 0, getWidth(), getHeight(), this);
+                g.drawImage(back, 0, 0, getWidth(), getHeight(),this);
             }
         };
+        bgPanel.setLayout(null);
+        bgPanel.setBounds(0, 0, getWidth(), getHeight());
 
         //tambah button
         JButton newGame = new JButton("New Game");
@@ -23,26 +28,36 @@ public class HomePage extends JFrame {
         newGame.setForeground(Color.BLUE);
         newGame.setBounds(450, 630, 275, 80);
         newGame.setBackground(Color.decode("#faf5e2"));
-        panel.add(newGame);
+        //pindah karena buttonnya
+        newGame.addActionListener(e -> {
+                cardLayoutm.show(mainPanel, "New Game");
+        });
+
         JButton loadGame = new JButton("Load Game");
         loadGame.setFont(new Font("Fredoka", Font.BOLD, 30));
         loadGame.setForeground(Color.BLUE);
         loadGame.setBounds(850, 630, 275, 80);
         loadGame.setBackground(Color.decode("#faf5e2"));
-        panel.add(loadGame);
+        //pindah karena buttonya
+        loadGame.addActionListener(e -> {
+            cardLayoutm.show(mainPanel, "Load Game");
+        });
+
         JButton exitGame = new JButton("EXIT");
         exitGame.setFont(new Font("Fredoka", Font.BOLD, 30));
         exitGame.setForeground(Color.BLUE);
         exitGame.setBounds(1350, 800, 125, 40);
         exitGame.setBackground(Color.decode("#faf5e2"));
-        panel.add(exitGame);
+        //pindah karena buttonya
+        exitGame.addActionListener(e -> System.exit(0));
 
-        panel.setBounds(0, 0, getWidth(), getHeight());
-        panel.setLayout(null);
-        panel.setVisible(true);
+        bgPanel.add(newGame);
+        bgPanel.add(loadGame);
+        bgPanel.add(exitGame);
 
-        this.setContentPane(panel);
-        this.setVisible(true);
+        this.setLayout(null);
+        this.add(bgPanel);
 
     }
+
 }

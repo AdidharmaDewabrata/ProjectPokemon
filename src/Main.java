@@ -1,14 +1,16 @@
+import panel.HomePage;
+
 public class Main {
     public static void main(String[] args) {
-//        Pokemon pikachu = new Pokemon("Pikachu", Type.ELECTRIC, 35, 55, 40);
-//        pikachu.addMove(new Move("Thunderbolt", Type.ELECTRIC, 90));
-//        pikachu.addMove(new Move("Quick Attack", Type.NORMAL, 40));
+//        pokemon.Pokemon pikachu = new pokemon.Pokemon("Pikachu", pokemon.Type.ELECTRIC, 35, 55, 40);
+//        pikachu.addMove(new pokemon.Move("Thunderbolt", pokemon.Type.ELECTRIC, 90));
+//        pikachu.addMove(new pokemon.Move("Quick Attack", pokemon.Type.NORMAL, 40));
 //
-//        Pokemon bulbasaur = new Pokemon("Bulbasaur", Type.GRASS, 45, 49, 49);
-//        bulbasaur.addMove(new Move("Vine Whip", Type.GRASS, 45));
-//        bulbasaur.addMove(new Move("Tackle", Type.NORMAL, 40));
+//        pokemon.Pokemon bulbasaur = new pokemon.Pokemon("Bulbasaur", pokemon.Type.GRASS, 45, 49, 49);
+//        bulbasaur.addMove(new pokemon.Move("Vine Whip", pokemon.Type.GRASS, 45));
+//        bulbasaur.addMove(new pokemon.Move("Tackle", pokemon.Type.NORMAL, 40));
 //
-//        Battle battle = new Battle(pikachu, bulbasaur);
+//        pokemon.Battle battle = new pokemon.Battle(pikachu, bulbasaur);
 //        battle.start();
 
         new HomePage();

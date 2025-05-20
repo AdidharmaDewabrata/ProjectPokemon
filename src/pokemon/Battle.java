@@ -1,4 +1,6 @@
-// Battle.java
+package pokemon;
+
+// pokemon.Battle.java
 public class Battle {
     private Pokemon pokemon1;
     private Pokemon pokemon2;
@@ -12,10 +14,10 @@ public class Battle {
         System.out.println("A battle begins between " + pokemon1.getName() + " and " + pokemon2.getName() + "!");
 
         while (!pokemon1.isFainted() && !pokemon2.isFainted()) {
-            turn(pokemon1, pokemon2); // Pokemon 1's turn
-            if (pokemon2.isFainted()) break; // Check if Pokemon 2 fainted
-            turn(pokemon2, pokemon1); // Pokemon 2's turn
-            if (pokemon1.isFainted()) break; // Check if Pokemon 1 fainted
+            turn(pokemon1, pokemon2); // pokemon.Pokemon 1's turn
+            if (pokemon2.isFainted()) break; // Check if pokemon.Pokemon 2 fainted
+            turn(pokemon2, pokemon1); // pokemon.Pokemon 2's turn
+            if (pokemon1.isFainted()) break; // Check if pokemon.Pokemon 1 fainted
         }
 
         if (pokemon1.isFainted()) {
@@ -33,7 +35,7 @@ public class Battle {
     }
 
     public static int calculateDamage(Pokemon attacker, Move move, Pokemon defender) {
-        double effectiveness = getTypeEffectiveness(move.getType(), defender.getType()); // Type effectiveness
+        double effectiveness = getTypeEffectiveness(move.getType(), defender.getType()); // pokemon.Type effectiveness
         int damage = (int) ((move.getPower() * attacker.getAttack() / defender.getDefense()) * effectiveness);
         return Math.max(0, damage); // Ensure damage is not negative
     }
@@ -56,7 +58,7 @@ public class Battle {
         if (attackIndex < typeChart.length && defendIndex < typeChart[attackIndex].length) {
             return typeChart[attackIndex][defendIndex];
         } else {
-            System.out.println("Type effectiveness data not found for " + attackType + " attacking " + defendType + ". Returning 1.0 (normal effectiveness).");
+            System.out.println("pokemon.Type effectiveness data not found for " + attackType + " attacking " + defendType + ". Returning 1.0 (normal effectiveness).");
             return 1.0; // Default to normal effectiveness if data is missing
         }
 

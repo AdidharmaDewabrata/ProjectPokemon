@@ -1,3 +1,5 @@
+package pokemon;
+
 import java.util.*;
 import java.io.*;
 
@@ -36,9 +38,9 @@ public class ListPokemon {
 
 // buat cek data masuk apa ga
 //    public static void main(String[] args) {
-//        ListPokemon listPokemon = new ListPokemon();
-//        for (Pokemon p : listPokemon.getPokemonList()) {
-//            System.out.println(p); // pastikan class Pokemon punya toString()
+//        pokemon.ListPokemon listPokemon = new pokemon.ListPokemon();
+//        for (pokemon.Pokemon p : listPokemon.getPokemonList()) {
+//            System.out.println(p); // pastikan class pokemon.Pokemon punya toString()
 //        }
 //    }
 
