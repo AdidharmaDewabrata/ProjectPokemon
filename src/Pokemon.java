@@ -67,4 +67,9 @@ public class Pokemon {
     public boolean isFainted() {
         return health <= 0;
     }
+
+    //buat cek masuk atau ga datanya
+    @Override
+    public String toString() {
+        return name + " | " + type + " | HP: " + health + " | ATK: " + attack + " | DEF: " + defense;    }
 }

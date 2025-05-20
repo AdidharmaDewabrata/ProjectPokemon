@@ -1,3 +1,3 @@
 public enum Type {
-    FIRE, WATER, GRASS, NORMAL, ELECTRIC // ... add more types
+    FIRE, WATER, GRASS, NORMAL, ELECTRIC, PSYCHIC // ... add more types
 }

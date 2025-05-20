@@ -1,0 +1,6 @@
+Pikachu,ELECTRIC,90,55,40
+Charmander,FIRE,85,60,43
+Squirtle,WATER,80,48,65
+Bulbasaur,GRASS,75,49,49
+Psyduck,PSYCHIC,70,52,48
+Eevee,NORMAL,65,55,50
