@@ -1,4 +1,7 @@
+import panel.Base;
 import panel.HomePage;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,6 +16,6 @@ public class Main {
 //        pokemon.Battle battle = new pokemon.Battle(pikachu, bulbasaur);
 //        battle.start();
 
-        new HomePage();
+        SwingUtilities.invokeLater(() -> new Base());
     }
 }

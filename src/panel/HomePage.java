@@ -7,7 +7,8 @@ import java.awt.event.ActionListener;
 
 public class HomePage extends JPanel {
     public HomePage(CardLayout cardLayoutm, JPanel mainPanel) {
-        this.setLayout(null);
+        this.setLayout(new BorderLayout());
+        //this.setBounds(0, 0, getWidth(), getHeight());
 
         //backgroudnya
         Image back = new ImageIcon("C:\\Users\\adksp\\Downloads\\Sprites\\Heading.jpg").getImage();
@@ -33,6 +34,7 @@ public class HomePage extends JPanel {
                 cardLayoutm.show(mainPanel, "New Game");
         });
 
+
         JButton loadGame = new JButton("Load Game");
         loadGame.setFont(new Font("Fredoka", Font.BOLD, 30));
         loadGame.setForeground(Color.BLUE);
@@ -54,10 +56,9 @@ public class HomePage extends JPanel {
         bgPanel.add(newGame);
         bgPanel.add(loadGame);
         bgPanel.add(exitGame);
-
+// sek ntar cek lagi
         this.setLayout(null);
-        this.add(bgPanel);
-
+        this.add(bgPanel, BorderLayout.CENTER);
     }
 
 }
