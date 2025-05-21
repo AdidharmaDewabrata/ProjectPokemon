@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+
 // Battle.java
 public class Battle {
     private Pokemon pokemon1;
@@ -40,11 +43,11 @@ public class Battle {
 
     private static double[][] typeChart = {
             //                      FIRE   WATER  GRASS  NORMAL ELECTRIC ... (Add more types)
-            /* FIRE */         {  1.0,   0.5,   2.0,   1.0,   1.0,  /* ... */ },
-            /* WATER */        {  2.0,   1.0,   0.5,   1.0,   1.0,  /* ... */ },
-            /* GRASS */        {  0.5,   2.0,   1.0,   1.0,   1.0,  /* ... */ },
-            /* NORMAL */       {  1.0,   1.0,   1.0,   1.0,   1.0,  /* ... */ },
-            /* ELECTRIC */     {  1.0,   1.0,   1.0,   1.0,   1.0,  /* ... */ },
+            /* FIRE */         {1.0, 0.5, 2.0, 1.0, 1.0,  /* ... */},
+            /* WATER */        {2.0, 1.0, 0.5, 1.0, 1.0,  /* ... */},
+            /* GRASS */        {0.5, 2.0, 1.0, 1.0, 1.0,  /* ... */},
+            /* NORMAL */       {1.0, 1.0, 1.0, 1.0, 1.0,  /* ... */},
+            /* ELECTRIC */     {1.0, 1.0, 1.0, 1.0, 1.0,  /* ... */},
             // ... Add more rows for other types
     };
 
@@ -60,5 +63,11 @@ public class Battle {
             return 1.0; // Default to normal effectiveness if data is missing
         }
 
+    }
+    Battle(){
+        JFrame frame = new JFrame("Battle");
+        frame.setSize(1920, 1080);
+        frame.getContentPane().setBackground(Color.decode("#faf5e2"));
+        frame.setVisible(true);
     }
 }
