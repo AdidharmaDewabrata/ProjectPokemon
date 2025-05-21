@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 
 public class HomePage extends JPanel {
     public HomePage(CardLayout cardLayoutm, JPanel mainPanel) {
-        this.setLayout(new BorderLayout());
-        //this.setBounds(0, 0, getWidth(), getHeight());
 
         //backgroudnya
         Image back = new ImageIcon("C:\\Users\\adksp\\Downloads\\Sprites\\Heading.jpg").getImage();
@@ -17,11 +15,12 @@ public class HomePage extends JPanel {
         JPanel bgPanel = new JPanel(){
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(back, 0, 0, getWidth(), getHeight(),this);
+                g.drawImage(back, 0, 0, 1920, 1080,this);
             }
         };
         bgPanel.setLayout(null);
-        bgPanel.setBounds(0, 0, getWidth(), getHeight());
+        bgPanel.setPreferredSize(new Dimension(1920, 1080));
+        //bgPanel.setBounds(0, 0, getWidth(), getHeight());
 
         //tambah button
         JButton newGame = new JButton("New Game");
@@ -40,7 +39,7 @@ public class HomePage extends JPanel {
         loadGame.setForeground(Color.BLUE);
         loadGame.setBounds(850, 630, 275, 80);
         loadGame.setBackground(Color.decode("#faf5e2"));
-        //pindah karena buttonya
+        //pindah karena buttonnya
         loadGame.addActionListener(e -> {
             cardLayoutm.show(mainPanel, "Load Game");
         });
@@ -50,15 +49,17 @@ public class HomePage extends JPanel {
         exitGame.setForeground(Color.BLUE);
         exitGame.setBounds(1350, 800, 125, 40);
         exitGame.setBackground(Color.decode("#faf5e2"));
-        //pindah karena buttonya
+        //pindah karena buttonnya
         exitGame.addActionListener(e -> System.exit(0));
 
         bgPanel.add(newGame);
         bgPanel.add(loadGame);
         bgPanel.add(exitGame);
-// sek ntar cek lagi
-        this.setLayout(null);
+
         this.add(bgPanel, BorderLayout.CENTER);
+        this.revalidate();
+        this.repaint();
+
     }
 
 }

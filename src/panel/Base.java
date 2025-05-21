@@ -8,7 +8,6 @@ public class Base extends JFrame{
     public Base() {
         this.setTitle("PooperMon");
         this.setSize(1920, 1080);
-        this.setLayout(null);
 
         //bikin container buat cardLayoutnya
         cardLayout = new CardLayout();

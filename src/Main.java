@@ -16,6 +16,6 @@ public class Main {
 //        pokemon.Battle battle = new pokemon.Battle(pikachu, bulbasaur);
 //        battle.start();
 
-        SwingUtilities.invokeLater(() -> new Base());
+        SwingUtilities.invokeLater(Base::new);
     }
 }
