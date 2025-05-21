@@ -1,3 +1,5 @@
+package pokemon;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,14 +10,16 @@ public class Pokemon {
     private int attack;
     private int defense;
     private List<Move> moves;
+    private String spritesPath;
 
-    public Pokemon(String name, Type type, int health, int attack, int defense) {
+    public Pokemon(String name, Type type, int health, int attack, int defense, String spritesPath) {
         this.name = name;
         this.type = type;
         this.health = health;
         this.attack = attack;
         this.defense = defense;
         this.moves = new ArrayList<>();
+        this.spritesPath = spritesPath;
     }
 
     // ***Getters and Setters (Crucial!)***
@@ -51,6 +55,10 @@ public class Pokemon {
         moves.add(move);
     }
 
+    public String getSpritesPath() { return spritesPath; }
+
+    public void setSpritesPath(String spritesPath) { this.spritesPath = spritesPath; }
+
     public void attack(Pokemon target, Move move) {
         int damage = Battle.calculateDamage(this, move, target);
         target.takeDamage(damage);
@@ -66,5 +74,11 @@ public class Pokemon {
 
     public boolean isFainted() {
         return health <= 0;
+    }
+
+    //buat cek masuk atau ga datanya
+    @Override
+    public String toString() {
+        return name + " | " + type + " | HP: " + health + " | ATK: " + attack + " | DEF: " + defense + " | Sprites: \n" + spritesPath;
     }
 }
