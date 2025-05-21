@@ -14,11 +14,11 @@ public class Base extends JFrame{
         mainPanel = new JPanel(cardLayout);
 
        //List panel yang ada, pagenya gitu dah
-        HomePage homePage = new HomePage(cardLayout, mainPanel);
+        LandingPage homePage = new LandingPage(cardLayout, mainPanel);
         Menu menu = new Menu();
 
         //dimasukin ke card
-        mainPanel.add(homePage, "homePage");
+        mainPanel.add(LandingPage, "LandingPage");
         mainPanel.add(menu, "menu");
 
         //nampilin panel utama, si homepagenya
