@@ -7,7 +7,23 @@ public class Base extends JFrame{
     private CardLayout cardLayout;
     public Base() {
         this.setTitle("PooperMon");
-        this.setSize(1920, 1080);
+//        this.setSize(1024, 750);
+//        this.setLocationRelativeTo(null);
+
+//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        GraphicsConfiguration gc = gd.getDefaultConfiguration();
+        Rectangle usableBounds = gc.getBounds();
+        Insets screenInsets = Toolkit.getDefaultToolkit().getScreenInsets(gc);
+
+        int usableWidth = usableBounds.width - screenInsets.left - screenInsets.right;
+        int usableHeight = usableBounds.height - screenInsets.top - screenInsets.bottom;
+
+        this.setSize(usableWidth, usableHeight);
+        this.setLocation(screenInsets.left, screenInsets.top);
+        this.setUndecorated(false);
+        this.setLocationRelativeTo(null);
 
         //bikin container buat cardLayoutnya
         cardLayout = new CardLayout();
