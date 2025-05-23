@@ -1,14 +1,11 @@
+package panel;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-
-public class LandingPage extends JFrame {
-    LandingPage() {
-        this.setTitle("PooperMon");
-        this.setSize(1920, 1080);
-        this.setLayout(null);
+public class LandingPage extends JPanel {
+    public LandingPage(CardLayout cardLayout, JPanel mainPanel) {
+        this.setLayout(new BorderLayout());
 
         Image back = new ImageIcon("C:\\Users\\adksp\\Downloads\\Sprites\\Heading.jpg").getImage();
 
@@ -19,7 +16,11 @@ public class LandingPage extends JFrame {
             }
         };
 
-        //tambah button
+        // set layout dan ukuran
+        panel.setLayout(null);
+        panel.setPreferredSize(new Dimension(1920, 1080));
+
+        // Tombol Start
         JButton start = new JButton("Start");
         start.setFont(new Font("Fredoka", Font.BOLD, 30));
         start.setForeground(Color.BLUE);
@@ -27,6 +28,7 @@ public class LandingPage extends JFrame {
         start.setBackground(Color.decode("#faf5e2"));
         panel.add(start);
 
+        // Tombol History
         JButton history = new JButton("History");
         history.setFont(new Font("Fredoka", Font.BOLD, 30));
         history.setForeground(Color.BLUE);
@@ -34,6 +36,7 @@ public class LandingPage extends JFrame {
         history.setBackground(Color.decode("#faf5e2"));
         panel.add(history);
 
+        // Tombol Exit
         JButton exitGame = new JButton("EXIT");
         exitGame.setFont(new Font("Fredoka", Font.BOLD, 30));
         exitGame.setForeground(Color.BLUE);
@@ -41,25 +44,21 @@ public class LandingPage extends JFrame {
         exitGame.setBackground(Color.decode("#faf5e2"));
         panel.add(exitGame);
 
-        panel.setBounds(0, 0, getWidth(), getHeight());
-        panel.setLayout(null);
-        panel.setVisible(true);
+        // Tambahkan ke LandingPage panel utama
+        this.add(panel, BorderLayout.CENTER);
 
-        this.setContentPane(panel);
-        this.setVisible(true);
-
+        // Event listener
         start.addActionListener(e -> {
-            new Battle();
-            LandingPage.this.setVisible(false);
+            // Contoh: show panel "menu"
+            cardLayout.show(mainPanel, "menu");
         });
 
         history.addActionListener(e -> {
-            System.out.println("masi blom kelar");
+            JOptionPane.showMessageDialog(this, "Masih belum kelar!");
         });
 
         exitGame.addActionListener(e -> {
             System.exit(0);
         });
-
     }
 }
