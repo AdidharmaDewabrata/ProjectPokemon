@@ -18,64 +18,39 @@ public class LandingPage extends JPanel {
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(1920, 1080));
 
-        // Tombol Start
-//        JButton start = new JButton("Start");
-//        start.setFont(new Font("Fredoka", Font.BOLD, 30));
-//        start.setForeground(Color.BLUE);
-//        start.setBounds(650, 580, 275, 80);
-//        start.setBackground(Color.decode("#faf5e2"));
-//        panel.add(start);
-//
-//        // Tombol History
-//        JButton history = new JButton("History");
-//        history.setFont(new Font("Fredoka", Font.BOLD, 30));
-//        history.setForeground(Color.BLUE);
-//        history.setBounds(650, 670, 275, 80);
-//        history.setBackground(Color.decode("#faf5e2"));
-//        panel.add(history);
-//
-//        // Tombol Exit
-//        JButton exitGame = new JButton("EXIT");
-//        exitGame.setFont(new Font("Fredoka", Font.BOLD, 30));
-//        exitGame.setForeground(Color.BLUE);
-//        exitGame.setBounds(1350, 800, 125, 40);
-//        exitGame.setBackground(Color.decode("#faf5e2"));
-//        panel.add(exitGame);
-
         // Set layout panel
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 40, 10, 40);
-// Panel tombol di bawah
+
+        // Panel tombol di bawah
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 20));
         buttonPanel.setOpaque(false);
 
-// Tombol Start
+        // Tombol Start
         JButton start = new JButton("Start");
         start.setFont(new Font("Fredoka", Font.BOLD, 30));
         start.setForeground(Color.BLUE);
         start.setBackground(Color.decode("#faf5e2"));
         buttonPanel.add(start);
 
-// Tombol History
+        // Tombol History
         JButton history = new JButton("History");
         history.setFont(new Font("Fredoka", Font.BOLD, 30));
         history.setForeground(Color.BLUE);
         history.setBackground(Color.decode("#faf5e2"));
         buttonPanel.add(history);
 
-// Tombol Exit
+        // Tombol Exit
         JButton exitGame = new JButton("EXIT");
         exitGame.setFont(new Font("Fredoka", Font.BOLD, 30));
         exitGame.setForeground(Color.BLUE);
         exitGame.setBackground(Color.decode("#faf5e2"));
         buttonPanel.add(exitGame);
 
-// Tambahkan button panel ke bawah
+        // Tambahkan button panel ke bawah
         panel.setLayout(new BorderLayout());
         panel.add(buttonPanel, BorderLayout.SOUTH);
-
-
 
         // Tambahkan ke LandingPage panel utama
         this.add(panel, BorderLayout.CENTER);
@@ -83,7 +58,7 @@ public class LandingPage extends JPanel {
         // Event listener
         start.addActionListener(e -> {
             // Contoh: show panel "menu"
-            cardLayout.show(mainPanel, "menu");
+            cardLayout.show(mainPanel, "homePage");
         });
 
         history.addActionListener(e -> {
