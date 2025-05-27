@@ -52,7 +52,7 @@ public class HomePage extends JPanel {
 
         // Ini ke player 1 pick pokemon (pre-battle)
         play.addActionListener(e -> {
-            cardLayout.show(cardPanelContainer, "play");
+            cardLayout.show(cardPanelContainer, "ChoosePlayer1");
         });
 
         // Lihat pokemon list
@@ -65,13 +65,19 @@ public class HomePage extends JPanel {
             cardLayout.show(cardPanelContainer, "panel.LandingPage");
         });
 
-        ImageIcon[] pikachuframe = new ImageIcon[58];
+        JLabel blastoise = new JLabel();
+        new Animation(blastoise, "blastoise", "front",350, 350).start();
+        blastoise.setBounds(120, 320, 335, 350);
+        blastoise.setVisible(true);
+        add(blastoise);
+        setComponentZOrder(blastoise,0);
 
-        for(int i = 0; i < 58; i++) {
-            pikachuframe[i] = new ImageIcon("C:\\Users\\adksp\\Downloads\\Sprites\\Pikachu Evo\\pikachu frames front\\pikachu-export"+i+1+".png");
-        }
-
-
+        JLabel charizard = new JLabel();
+        new Animation(charizard, "charizard", "front",435, 455).start();
+        charizard.setBounds(580, 220, 435, 455);
+        charizard.setVisible(true);
+        add(charizard);
+        setComponentZOrder(charizard,0);
 
     }
 

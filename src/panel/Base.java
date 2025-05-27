@@ -30,12 +30,12 @@ public class Base extends JFrame {
 
         // Daftar halaman
         LandingPage landingPage = new LandingPage(cardLayout, mainPanel);
-        Menu menu = new Menu();
+        HomePage homePage = new HomePage(cardLayout, mainPanel);
         ChoosePlayer1 choosePlayer1 = new ChoosePlayer1();
 
         // Masukkan ke card layout
-//        mainPanel.add(landingPage, "panel.LandingPage");
-//        mainPanel.add(menu, "menu");
+        mainPanel.add(landingPage, "panel.LandingPage");
+        mainPanel.add(homePage, "panel.HomePage");
         mainPanel.add(choosePlayer1, "panel.ChoosePlayer1");
 
         // Set tampilan awal

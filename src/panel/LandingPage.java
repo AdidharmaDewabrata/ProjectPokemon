@@ -57,8 +57,7 @@ public class LandingPage extends JPanel {
 
         // Event listener
         start.addActionListener(e -> {
-            // Contoh: show panel "menu"
-            cardLayout.show(mainPanel, "homePage");
+            cardLayout.show(mainPanel, "panel.HomePage");
         });
 
         history.addActionListener(e -> {
