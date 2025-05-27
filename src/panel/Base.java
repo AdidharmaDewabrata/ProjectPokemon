@@ -1,16 +1,15 @@
 package panel;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class Base extends JFrame{
+public class Base extends JFrame {
     private JPanel mainPanel;
     private CardLayout cardLayout;
+
     public Base() {
         this.setTitle("PooperMon");
-//        this.setSize(1024, 750);
-//        this.setLocationRelativeTo(null);
 
-//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         GraphicsConfiguration gc = gd.getDefaultConfiguration();
@@ -25,22 +24,31 @@ public class Base extends JFrame{
         this.setUndecorated(false);
         this.setLocationRelativeTo(null);
 
-        //bikin container buat cardLayoutnya
+        // CardLayout container
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-       //List panel yang ada, pagenya gitu dah
+        // Daftar halaman
         LandingPage landingPage = new LandingPage(cardLayout, mainPanel);
         Menu menu = new Menu();
+        ChoosePlayer1 choosePlayer1 = new ChoosePlayer1();
 
-        //dimasukin ke card
-        mainPanel.add(landingPage, "panel.LandingPage");
-        mainPanel.add(menu, "menu");
+        // Masukkan ke card layout
+//        mainPanel.add(landingPage, "panel.LandingPage");
+//        mainPanel.add(menu, "menu");
+        mainPanel.add(choosePlayer1, "panel.ChoosePlayer1");
 
-        //nampilin panel utama, si homepagenya
+        // Set tampilan awal
         this.setContentPane(mainPanel);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
-
     }
 
+    public CardLayout getCardLayout() {
+        return cardLayout;
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 }
