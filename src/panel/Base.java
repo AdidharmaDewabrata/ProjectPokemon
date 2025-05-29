@@ -1,5 +1,7 @@
 package panel;
 
+import pokemon.Battle;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -31,12 +33,14 @@ public class Base extends JFrame {
         // Daftar halaman
         LandingPage landingPage = new LandingPage(cardLayout, mainPanel);
         HomePage homePage = new HomePage(cardLayout, mainPanel);
-        ChoosePlayer1 choosePlayer1 = new ChoosePlayer1();
+        ChoosePlayer1 choosePlayer1 = new ChoosePlayer1(cardLayout, mainPanel);
+        BattlePage battlePage = new BattlePage(cardLayout, mainPanel);
 
         // Masukkan ke card layout
         mainPanel.add(landingPage, "panel.LandingPage");
         mainPanel.add(homePage, "panel.HomePage");
         mainPanel.add(choosePlayer1, "panel.ChoosePlayer1");
+        mainPanel.add(battlePage, "panel.BattlePage");
 
         // Set tampilan awal
         this.setContentPane(mainPanel);
