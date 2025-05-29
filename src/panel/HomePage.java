@@ -8,7 +8,7 @@ public class HomePage extends JPanel {
 
     public HomePage(CardLayout cardLayout, JPanel cardPanelContainer) { // Mengganti 'panel' menjadi 'cardPanelContainer' agar lebih jelas
         // Memuat gambar latar belakang saat objek HomePage dibuat
-        backgroundImage = new ImageIcon("C:\\Users\\adksp\\Downloads\\1defd9939a5a1d4c5fd9da1990789882.jpg").getImage();
+        backgroundImage = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\showcase.png").getImage();
         setLayout(null);
 
         //images podium & poopermon

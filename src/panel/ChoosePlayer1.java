@@ -10,7 +10,7 @@ public class ChoosePlayer1 extends JPanel {
         this.setLayout(new BorderLayout());
 
         // Background Image
-        Image back = new ImageIcon("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemonGUI\\src\\assets\\hutanlendir.jpg").getImage();
+        Image back = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\hutanlendir.jpg").getImage();
         JPanel panel = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);

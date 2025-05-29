@@ -6,7 +6,7 @@ import java.awt.*;
 public class ChoosePlayer2 extends JPanel {
     public ChoosePlayer2(CardLayout cardLayout, JPanel mainPanel) {
         this.setLayout(new BorderLayout());
-        Image back = new ImageIcon("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemonGUI\\src\\assets\\bg_choosePokemon.jpg").getImage();
+        Image back = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\hutanlendir.jpg").getImage();
         JPanel panel = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
