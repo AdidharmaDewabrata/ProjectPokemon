@@ -11,7 +11,7 @@ public class ChoosePlayer1 extends JPanel {
     private Image back;
     public ChoosePlayer1(CardLayout cardLayout, JPanel cardPanelContainer) {
         this.setLayout(null);
-        back = new ImageIcon("C:\\Users\\adksp\\Downloads\\de1bb37306257d5cd20a87c3df39a108.jpg").getImage();
+        back = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\hutanlendir.jpg").getImage();
 
         //Player 1 label
         JTextField player1 = new JTextField("Player 1");
@@ -24,7 +24,7 @@ public class ChoosePlayer1 extends JPanel {
         add(player1);
 
         //arrow kanan
-        JLabel right = new JLabel(new ImageIcon("C:\\Users\\adksp\\Downloads\\Sprites\\right.png"));
+        JLabel right = new JLabel(new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\ArRight.png"));
 //        right.setBounds()
     }
 
