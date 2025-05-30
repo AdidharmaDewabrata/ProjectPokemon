@@ -12,14 +12,13 @@ public class Pokemon {
     private List<Move> moves;
     private String spritesPath;
 
-    public Pokemon(String name, Type type, int health, int attack, int defense, String spritesPath) {
+    public Pokemon(String name, Type type, int health, int attack, int defense) {
         this.name = name;
         this.type = type;
         this.health = health;
         this.attack = attack;
         this.defense = defense;
         this.moves = new ArrayList<>();
-        this.spritesPath = spritesPath;
     }
 
     // ***Getters and Setters (Crucial!)***

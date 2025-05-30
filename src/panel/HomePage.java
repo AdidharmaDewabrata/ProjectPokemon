@@ -52,7 +52,7 @@ public class HomePage extends JPanel {
 
         // Ini ke player 1 pick pokemon (pre-battle)
         play.addActionListener(e -> {
-            cardLayout.show(cardPanelContainer, "ChoosePlayer1");
+            cardLayout.show(cardPanelContainer, "panel.ChoosePlayer1");
         });
 
         // Lihat pokemon list

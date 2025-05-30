@@ -20,7 +20,7 @@ public class ListPokemon {
                     int defense = Integer.parseInt(pokemon[4]);
                     String image = pokemon[5];
 
-                    Pokemon pokemonchara = new Pokemon(name, type, health, attack, defense, image);
+                    Pokemon pokemonchara = new Pokemon(name, type, health, attack, defense);
                     pokemonList.add(pokemonchara);
                 }
                 line = rc.readLine();
