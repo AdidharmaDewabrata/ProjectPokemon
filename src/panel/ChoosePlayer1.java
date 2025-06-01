@@ -30,13 +30,13 @@ public class ChoosePlayer1 extends JPanel {
         add(player1);
 
         //arrow kanan
-        JLabel right = new JLabel(new ImageIcon("C:\\Users\\adksp\\Downloads\\Sprites\\right.png"));
-        right.setBounds(940,400,100,100);
+        JLabel right = new JLabel(new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\right.png"));
+        right.setBounds(940,300,100,100);
         add(right);
 
         //arrow kiri
-        JLabel left = new JLabel(new ImageIcon("C:\\Users\\adksp\\Downloads\\Sprites\\left.png"));
-        left.setBounds(550,400,100,100);
+        JLabel left = new JLabel(new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\left.png"));
+        left.setBounds(550,300,100,100);
         add(left);
 
         //baca data dari pokemonchara.txt
@@ -70,24 +70,27 @@ public class ChoosePlayer1 extends JPanel {
             pokemon[i] = new Pokemon(s, w, hp, att, def);
         }
 
-
         //ganti pokemon
         String[] pokemonlist = {"Pikachu","Charizard","Blastoise","Venusaur","Infernape","Snorlax","Clefable","Masquerain","Marowak","Dragonite","Galvantula","Glaceon"};
         for(int i = 0; i < pokemonlist.length; i++){
             pokemonImage[i] = new JLabel();
             pokemonImage[i].setVisible(false);
             new Animation(pokemonImage[i],pokemonlist[i],"front",300,300).start();
-            pokemonImage[i].setBounds(640,300,300,300);
+            pokemonImage[i].setBounds(640,200,300,300);
             add(pokemonImage[i]);
         }
         JLabel[] labelz = new JLabel[12];
         JLabel[] labelImage = new JLabel[12];
+        JLabel[] labelStatContainer = new JLabel[12];
+        JLabel[] health = new JLabel[12];
+        JLabel[] attack = new JLabel[12];
+        JLabel[] defend = new JLabel[12];
         //ganti nama pokemon
         for(int i = 0; i < pokemonName.length; i++){
             // Container label
             labelz[i] = new JLabel();
             labelz[i].setLayout(null);
-            labelz[i].setBounds(500, 600, 600, 200);
+            labelz[i].setBounds(500, 500, 600, 200);
             labelz[i].setOpaque(false); // optional: set true with color for debugging
             labelz[i].setVisible(false); // initially hidden
             add(labelz[i]);
@@ -106,8 +109,38 @@ public class ChoosePlayer1 extends JPanel {
             labelz[i].add(pokemonName[i]);
             add(labelz[i]);
         }
+        //ganti stats pokemon
+        for(int i = 0; i < 12; i++){
+            labelStatContainer[i] = new JLabel();
+            labelStatContainer[i].setLayout(null);
+            labelStatContainer[i].setOpaque(false);
+            labelStatContainer[i].setVisible(false);
+            labelStatContainer[i].setBounds(500, 575, 600, 200);
+            setComponentZOrder(labelStatContainer[i],0);
+            add(labelStatContainer[i]);
+
+            health[i] = new JLabel("HP: "+pokemon[i].getHealth());
+            health[i].setFont(new Font("Times New Roman", Font.BOLD, 40));
+            health[i].setForeground(Color.decode("#fcdc59"));
+            health[i].setBounds(0,0,150,200);
+            labelStatContainer[i].add(health[i]);
+
+            attack[i] = new JLabel("Att: "+pokemon[i].getAttack());
+            attack[i].setFont(new Font("Times New Roman", Font.BOLD, 40));
+            attack[i].setForeground(Color.decode("#fcdc59"));
+            attack[i].setBounds(200,0,150,200);
+            labelStatContainer[i].add(attack[i]);
+
+            defend[i] = new JLabel("Def: "+pokemon[i].getDefense());
+            defend[i].setFont(new Font("Times New Roman", Font.BOLD, 40));
+            defend[i].setForeground(Color.decode("#fcdc59"));
+            defend[i].setBounds(400,0,150,200);
+            labelStatContainer[i].add(defend[i]);
+        }
+
         pokemonImage[0].setVisible(true);
         labelz[0].setVisible(true);
+        labelStatContainer[0].setVisible(true);
         setComponentZOrder(pokemonImage[0],0);
 
         right.addMouseListener(new MouseAdapter() {
@@ -119,6 +152,8 @@ public class ChoosePlayer1 extends JPanel {
                    pokemonImage[j].setVisible(true);
                    labelz[j - 1].setVisible(false);
                    labelz[j].setVisible(true);
+                   labelStatContainer[j - 1].setVisible(false);
+                   labelStatContainer[j].setVisible(true);
                }
            }
         });
@@ -132,6 +167,8 @@ public class ChoosePlayer1 extends JPanel {
                     pokemonImage[j].setVisible(true);
                     labelz[j + 1].setVisible(false);
                     labelz[j].setVisible(true);
+                    labelStatContainer[j + 1].setVisible(false);
+                    labelStatContainer[j].setVisible(true);
                 }
             }
         });
@@ -159,6 +196,7 @@ public class ChoosePlayer1 extends JPanel {
                 next.setText("Confirm");
                 pokemonImage[j].setVisible(false);
                 labelz[j].setVisible(false);
+                labelStatContainer[j].setVisible(false);
                 player1.setText("Player 2");
                 new Animation(p1, pokemonlist[j], "front", 200, 200).start();
                 p1.setBounds(50, 50, 200, 200);
@@ -167,6 +205,7 @@ public class ChoosePlayer1 extends JPanel {
                 j = 0;
                 pokemonImage[j].setVisible(true);
                 labelz[j].setVisible(true);
+                labelStatContainer[j].setVisible(true);
                 flag = false;
             }
             else{
