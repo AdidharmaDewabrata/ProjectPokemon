@@ -1,34 +1,25 @@
 package panel;
 
 import pokemon.Pokemon;
-
-import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.IOException;
-import java.net.URL;
-import java.util.*;
-import javax.sound.sampled.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.*;
+import java.util.Scanner;
 
 public class ChoosePlayer1 extends JPanel {
     private Image back;
-    public static final String CHOOSEPLAYER_MUSIC = "choose_player.wav";
-    private static Clip clip;
-
-    private JLabel pokemonNameLabel;
-    private JLabel hpLabel;
-    private JLabel attackLabel;
-    private JLabel defenseLabel;
-    private JLabel displayPokemon;
-
-    private ArrayList<Pokemon> availPokemon;
-    private int currentPokemon;
-    private Animation currentAnimation;
-
+    private JLabel[] pokemonImage = new JLabel[12], pokemonName = new JLabel[12];
+    private int j = 0;
+    private Pokemon[] pokemon = new Pokemon[12];
+    private String[][] dataPokemon = new String[12][5];
     public ChoosePlayer1(CardLayout cardLayout, JPanel cardPanelContainer) {
+        Scanner sc;
         this.setLayout(null);
-        back = new ImageIcon("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemonGUI\\src\\assets\\hutanlendir.jpg").getImage();
+        back = new ImageIcon("C:\\Users\\adksp\\Downloads\\de1bb37306257d5cd20a87c3df39a108.jpg").getImage();
 
         //Player 1 label
         JLabel player1 = new JLabel("Player 1");
@@ -36,117 +27,128 @@ public class ChoosePlayer1 extends JPanel {
         player1.setBackground(new Color(0,0,0,0));
         player1.setForeground(Color.decode("#fcdc59"));
         player1.setBorder(null);
-        player1.setFont(new Font("Source Sans Pro", Font.BOLD, 60));
-        player1.setBounds(500,-30, 540,200);
+        player1.setFont(new Font("Times New Roman", Font.BOLD, 70));
+        player1.setBounds(640,-30, 540,200);
         add(player1);
 
-        // Label untuk Nama Pokémon
-        pokemonNameLabel = new JLabel("Nama Pokemon");
-        pokemonNameLabel.setBounds(300, 50, 400, 50);
-        pokemonNameLabel.setFont(new Font("Source Sans Pro", Font.BOLD, 40));
-        pokemonNameLabel.setForeground(Color.decode("#f7f7f0"));
-        pokemonNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(pokemonNameLabel);
-
-        // Label untuk Stats
-        hpLabel = new JLabel("HP: 0");
-        attackLabel = new JLabel("ATT: 0");
-        defenseLabel = new JLabel("DEF: 0");
-
-        hpLabel.setBounds(300, 150, 200, 30); // Sesuaikan posisi dan ukuran
-        attackLabel.setBounds(300, 190, 200, 30);
-        defenseLabel.setBounds(300, 230, 200, 30);
-
-        hpLabel.setFont(new Font("Source Sans Pro", Font.PLAIN, 24));
-        attackLabel.setFont(new Font("Source Sans Pro", Font.PLAIN, 24));
-        defenseLabel.setFont(new Font("Source Sans Pro", Font.PLAIN, 24));
-
-        hpLabel.setForeground(Color.WHITE);
-        attackLabel.setForeground(Color.WHITE);
-        defenseLabel.setForeground(Color.WHITE);
-
-        add(hpLabel);
-        add(attackLabel);
-        add(defenseLabel);
-
-        // JLabel untuk menampilkan animasi Pokémon
-        displayPokemon = new JLabel();
-        displayPokemon.setBounds(350, 300, 300, 300); // Sesuaikan ukuran area display Pokémon
-        displayPokemon.setHorizontalAlignment(SwingConstants.CENTER);
-        displayPokemon.setVerticalAlignment(SwingConstants.CENTER);
-        add(displayPokemon);
-
-
         //arrow kanan
-        URL right = getClass().getResource("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemonGUI\\src\\assets\\ArRight.png");
-        if(right!=null){
-            JLabel rightAr = new JLabel(new ImageIcon(right));
-            rightAr.setBounds(750,200,200,200);
-            add(rightAr);
-            rightAr.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    showNextPokemon();
-                }
-            });
-        } else{
-            System.err.println("Image not found");
-        }
+        JLabel right = new JLabel(new ImageIcon("C:\\Users\\adksp\\Downloads\\Sprites\\right.png"));
+        right.setBounds(940,400,100,100);
+        add(right);
 
         //arrow kiri
-        URL left = getClass().getResource("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemonGUI\\src\\assets\\ArLeft.png");
-        if(left!=null){
-            JLabel leftAr = new JLabel(new ImageIcon(left));
-            leftAr.setBounds(750,200,200,200);
-            add(leftAr);
-            leftAr.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    showPreviousPokemon();
+        JLabel left = new JLabel(new ImageIcon("C:\\Users\\adksp\\Downloads\\Sprites\\left.png"));
+        left.setBounds(550,400,100,100);
+        add(left);
+
+        //baca data dari pokemonchara.txt
+        File file = new File("pokemonchara.txt");
+        String[][] dataPokemon = new String[12][5]; // Assuming 12 Pokémon, 5 attributes
+        Pokemon[] pokemon = new Pokemon[12];        // Your Pokémon array
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            int o = 0;
+            while ((line = br.readLine()) != null && o < 12) {
+                sc = new Scanner(line);
+                int u = 0;
+                while (sc.hasNext() && u < 5) {
+                    dataPokemon[o][u] = sc.next();
+                    u++;
                 }
-            });
-        } else{
-            System.err.println("Image not found");
+                o++;
+            }
+        } catch (IOException e) {
+            System.err.println(e);
         }
 
-//        setComponentZOrder(right, 0);
-//        setComponentZOrder(left, 0);
+        for (int i = 0; i < 12; i++) {
+            String s = dataPokemon[i][0];
+            String w = dataPokemon[i][1];
+            int hp = Integer.parseInt(dataPokemon[i][2]);
+            int att = Integer.parseInt(dataPokemon[i][3]);
+            int def = Integer.parseInt(dataPokemon[i][4]);
 
-        // Tombol Confirm
-        JButton confirm = new JButton("Confirm");
-        confirm.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
-        confirm.setForeground(Color.BLACK);
-        confirm.setBackground(Color.decode("#93cd8e"));
-        confirm.setBounds(550,550,150,50);
-        add(confirm);
-
-        //daftar pokemon
-        availPokemon = new ArrayList<>();
-        availPokemon.add(new Pokemon("Blastoise", 100, 30, 50, "blastoise", "front"));
-        availPokemon.add(new Pokemon("Charmander", 90, 40, 45, "charmander", "front"));
-        availPokemon.add(new Pokemon("Squirtle", 110, 25, 55, "squirtle", "front"));
-        availPokemon.add(new Pokemon("Pikachu", 80, 50, 30, "pikachu", "front"));
-        availPokemon.add(new Pokemon("Snorlax", 150, 20, 70, "snorlax", "front"));
-        availPokemon.add(new Pokemon("Venusaur", 110, 35, 60, "venusaur", "front"));
+            pokemon[i] = new Pokemon(s, w, hp, att, def);
+        }
 
 
-        // Tampilkan Pokémon pertama kali saat panel diinisialisasi
-        displayPokemon(currentPokemon);
+        //ganti pokemon
+        String[] pokemonlist = {"Pikachu","Charizard","Blastoise","Venusaur","Infernape","Snorlax","Clefable","Masquerain","Marowak","Dragonite","Galvantula","Glaceon"};
+        for(int i = 0; i < pokemonlist.length; i++){
+            pokemonImage[i] = new JLabel();
+            pokemonImage[i].setVisible(false);
+            new Animation(pokemonImage[i],pokemonlist[i],"front",300,300).start();
+            pokemonImage[i].setBounds(640,300,300,300);
+            add(pokemonImage[i]);
+        }
+        JLabel[] labelz = new JLabel[12];
+        JLabel[] labelImage = new JLabel[12];
+        //ganti nama pokemon
+        for(int i = 0; i < pokemonName.length; i++){
+            // Container label
+            labelz[i] = new JLabel();
+            labelz[i].setLayout(null);
+            labelz[i].setBounds(500, 600, 600, 200);
+            labelz[i].setOpaque(false); // optional: set true with color for debugging
+            labelz[i].setVisible(false); // initially hidden
+            add(labelz[i]);
 
-        //Kontrol musik otomatis
-        addHierarchyListener(new HierarchyListener() {
+            // Type image label
+            labelImage[i] = new JLabel(pokemon[i].getTypeImage(325,175));
+            labelImage[i].setBounds(-80, -20, 325, 175);
+            setComponentZOrder(labelImage[i],0);// inside container
+            labelz[i].add(labelImage[i]);
+
+            // Name label
+            pokemonName[i] = new JLabel(pokemon[i].getName());
+            pokemonName[i].setForeground(Color.decode("#f7f7f0"));
+            pokemonName[i].setFont(new Font("Times New Roman", Font.BOLD, 70));
+            pokemonName[i].setBounds(160, 20, 400, 100); // relative to container
+            labelz[i].add(pokemonName[i]);
+            add(labelz[i]);
+        }
+        pokemonImage[0].setVisible(true);
+        labelz[0].setVisible(true);
+        setComponentZOrder(pokemonImage[0],0);
+
+        right.addMouseListener(new MouseAdapter() {
+           @Override
+            public void mouseClicked(MouseEvent e) {
+               if(j<11) {
+                   j++;
+                   pokemonImage[j - 1].setVisible(false);
+                   pokemonImage[j].setVisible(true);
+                   labelz[j - 1].setVisible(false);
+                   labelz[j].setVisible(true);
+               }
+           }
+        });
+
+        left.addMouseListener(new MouseAdapter() {
             @Override
-            public void hierarchyChanged(HierarchyEvent e) {
-                if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
-                    if (isShowing()) {
-                        startMusic();
-                        startCurrentPokemonAnimation();
-                    } else {
-                        stopMusic();
-                        stopCurrentPokemonAnimation();
-                    }
+            public void mouseClicked(MouseEvent e) {
+                if(j>0) {
+                    j--;
+                    pokemonImage[j + 1].setVisible(false);
+                    pokemonImage[j].setVisible(true);
+                    labelz[j + 1].setVisible(false);
+                    labelz[j].setVisible(true);
                 }
             }
+        });
+
+        JButton next = new JButton("Next");
+        next.setFont(new Font("Times New Roman", Font.BOLD, 40));
+        next.setForeground(Color.decode("#000000"));
+        next.setBackground(Color.decode("#c4cd8e"));
+        next.setBounds(550, 750, 250, 75);
+        next.setVisible(true);
+        setComponentZOrder(next,0);
+        add(next);
+
+        next.addActionListener(e -> {
+            cardLayout.show(cardPanelContainer, "panel.ChoosePlayer2");
         });
     }
 
@@ -155,105 +157,7 @@ public class ChoosePlayer1 extends JPanel {
         super.paintComponent(g);
         g.drawImage(back, 0, 0, getWidth(), getHeight(), this);
     }
-
-    public void startMusic() {
-        stopMusic();
-
-        Thread musicThread = new Thread(() -> {
-            try {
-                URL musicUrl = HomePage.class.getResource(CHOOSEPLAYER_MUSIC);
-                if (musicUrl == null) {
-                    System.err.println("File suara musik ChoosePlayer tidak ditemukan: " + CHOOSEPLAYER_MUSIC);
-                    System.err.println("Lokasi kelas ChoosePlayer : " + HomePage.class.getProtectionDomain().getCodeSource().getLocation());
-                    return;
-                }
-
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicUrl);
-
-                if (clip != null) {
-                    clip.close();
-                }
-                clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-
-                clip.loop(Clip.LOOP_CONTINUOUSLY);
-                clip.start();
-                System.out.println("ChoosePlayer music started.");
-            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-                System.err.println("Terjadi kesalahan saat memutar musik ChoosePlayer : " + e.getMessage());
-                e.printStackTrace();
-            }
-        });
-        musicThread.start();
-    }
-
-    public void stopMusic() {
-        if (clip != null && clip.isRunning()) {
-            clip.stop();
-            clip.close();
-            System.out.println("ChoosePlayer music stopped.");
-        }
-    }
-
-    private void displayPokemon(int index) {
-        if (index >= 0 && index < availPokemon.size()) {
-            Pokemon pokemon = availPokemon.get(index);
-
-            // Perbarui teks label
-            pokemonNameLabel.setText(pokemon.getName());
-            hpLabel.setText("HP: " + pokemon.getHp());
-            attackLabel.setText("ATT: " + pokemon.getAttack());
-            defenseLabel.setText("DEF: " + pokemon.getDefense());
-
-            stopCurrentPokemonAnimation();
-            currentAnimation = new Animation(
-                    displayPokemon,
-                    pokemon.getAnimationIdentifier(),
-                    pokemon.getAnimationState(),
-                    displayPokemon.getWidth(),
-                    displayPokemon.getHeight()
-            );
-            currentAnimation.start();
-
-            System.out.println("Displaying Pokemon: " + pokemon.getName() + " (Index: " + index + ")");
-        }
-    }
-
-    private void showNextPokemon() {
-        currentPokemon++;
-        if (currentPokemon >= availPokemon.size()) {
-            currentPokemon = 0; // Kembali ke Pokémon pertama
-        }
-        displayPokemon(currentPokemon);
-    }
-
-    private void showPreviousPokemon() {
-        currentPokemon--;
-        if (currentPokemon < 0) {
-            currentPokemon = availPokemon.size() - 1; // Kembali ke Pokémon terakhir
-        }
-        displayPokemon(currentPokemon);
-    }
-
-    private void startCurrentPokemonAnimation() {
-        if (currentAnimation != null) {
-            currentAnimation.start();
-        } else {
-            displayPokemon(currentPokemon);
-        }
-    }
-
-    private void stopCurrentPokemonAnimation() {
-        if (currentAnimation != null) {
-            currentAnimation.stop();
-            System.out.println("Animation for current Pokemon stopped.");
-        }
-    }
-
 }
-
-
-
 
 
 
