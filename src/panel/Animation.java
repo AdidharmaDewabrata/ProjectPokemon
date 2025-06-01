@@ -274,19 +274,19 @@ private JLabel label;
     }
 
     public ImageIcon[] getVenusaur(String direction, int x, int y){
-        ImageIcon[] Front = new ImageIcon[87];
-        Image[] scaled1 = new Image[87];
-        ImageIcon[] venusaurFront = new ImageIcon[87];
-        ImageIcon[] Back = new ImageIcon[87];
-        Image[] scaled2 = new Image[87];
-        ImageIcon[] venusaurBack = new ImageIcon[87];
-        for(int i = 0; i < 87; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Venusaur Back\\venusaur (back)-export"+(i+1)+".png");
+        ImageIcon[] Front = new ImageIcon[167];
+        Image[] scaled1 = new Image[167];
+        ImageIcon[] venusaurFront = new ImageIcon[167];
+        ImageIcon[] Back = new ImageIcon[167];
+        Image[] scaled2 = new Image[167];
+        ImageIcon[] venusaurBack = new ImageIcon[167];
+        for(int i = 0; i < 167; i++){
+            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Venusaur Back\\venusaur (1)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             venusaurBack[i] = new ImageIcon(scaled1[i]);
         }
-        for(int i = 0; i < 87; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Venusaur Front\\venusaur-"+(i+1)+".png");
+        for(int i = 0; i < 167; i++){
+            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Venusaur Front\\venusaur-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             venusaurFront[i] = new ImageIcon(scaled2[i]);
         }
