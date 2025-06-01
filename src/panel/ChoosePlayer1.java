@@ -3,19 +3,17 @@ package panel;
 import pokemon.Pokemon;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.Scanner;
 
 public class ChoosePlayer1 extends JPanel {
+    public static int p1pick;
     private Image back;
     private JLabel[] pokemonImage = new JLabel[12], pokemonName = new JLabel[12];
     private int j = 0;
-    private Pokemon[] pokemon = new Pokemon[12];
-    private String[][] dataPokemon = new String[12][5];
+    static boolean flag = true;
     public ChoosePlayer1(CardLayout cardLayout, JPanel cardPanelContainer) {
         Scanner sc;
         this.setLayout(null);
@@ -43,8 +41,8 @@ public class ChoosePlayer1 extends JPanel {
 
         //baca data dari pokemonchara.txt
         File file = new File("pokemonchara.txt");
-        String[][] dataPokemon = new String[12][5]; // Assuming 12 Pokémon, 5 attributes
-        Pokemon[] pokemon = new Pokemon[12];        // Your Pokémon array
+        String[][] dataPokemon = new String[12][5];
+        Pokemon[] pokemon = new Pokemon[12];
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -142,14 +140,40 @@ public class ChoosePlayer1 extends JPanel {
         next.setFont(new Font("Times New Roman", Font.BOLD, 40));
         next.setForeground(Color.decode("#000000"));
         next.setBackground(Color.decode("#c4cd8e"));
-        next.setBounds(550, 750, 250, 75);
+        next.setBounds(650, 750, 250, 75);
         next.setVisible(true);
         setComponentZOrder(next,0);
         add(next);
 
+        JPanel show = new JPanel();
+        show.setLayout(null);
+        show.setBackground(Color.decode("#d9d9d9"));
+        show.setBounds(0,0, 425,250);
+        show.setVisible(false);
+        add(show);
+
+        JLabel p1 = new JLabel();
+
         next.addActionListener(e -> {
-            cardLayout.show(cardPanelContainer, "panel.ChoosePlayer2");
+            if(flag) {
+                next.setText("Confirm");
+                pokemonImage[j].setVisible(false);
+                labelz[j].setVisible(false);
+                player1.setText("Player 2");
+                new Animation(p1, pokemonlist[j], "front", 200, 200).start();
+                p1.setBounds(50, 50, 200, 200);
+                show.add(p1);
+                show.setVisible(true);
+                j = 0;
+                pokemonImage[j].setVisible(true);
+                labelz[j].setVisible(true);
+                flag = false;
+            }
+            else{
+                cardLayout.show(cardPanelContainer, "panel.BattlePage");
+            }
         });
+
     }
 
     @Override

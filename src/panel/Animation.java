@@ -344,7 +344,7 @@ private JLabel label;
     }
 
     public void start(){
-        Timer timer = new Timer(75, null);
+        Timer timer = new Timer(60, null);
         timer.addActionListener( e -> {
             index = (index + 1) % image.length;
             this.label.setIcon(this.image[index]);
