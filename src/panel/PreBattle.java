@@ -5,19 +5,12 @@ import java.awt.*;
 import java.net.URL;
 
 public class PreBattle extends JPanel {
-    private Image background;
+    private Image background, back;
     private JLabel pod1Label;
     private JLabel pod2Label;
 
-    public PreBattle(CardLayout cardLayout, JPanel cardPanelContainer) {
-        URL bgUrl = getClass().getResource("/assets/bg_prebattle.png");
-        if (bgUrl != null) {
-            background = new ImageIcon(bgUrl).getImage();
-        } else {
-            System.err.println("Background image not found: /assets/bg_prebattle.png");
-            background = null;
-        }
-
+    public PreBattle(CardLayout cardLayout, JPanel cardPanelContainer, int p1, int p2) {
+        back = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\bg_prebattle.jpg").getImage();
         setLayout(null);
 
         //podium
@@ -52,11 +45,10 @@ public class PreBattle extends JPanel {
         playButton.setBounds(550, 425, 200, 50);
         add(playButton);
         playButton.addActionListener(e -> {
-            cardLayout.show(cardPanelContainer, "ChoosePlayer1");
-        });
-        playButton.addActionListener(e -> {
+            BattlePage battlePage = new BattlePage(cardLayout, cardPanelContainer, p1, p2);
+            cardPanelContainer.add(battlePage, "panel.BattlePage");
             cardLayout.show(cardPanelContainer, "panel.BattlePage");
-                });
+        });
 
         //Label player1&2
         JLabel player1 = new JLabel("Player 1");
@@ -84,8 +76,8 @@ public class PreBattle extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (background != null) {
-            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+        if (back != null) {
+            g.drawImage(back, 0, 0, getWidth(), getHeight(), this);
         }
     }
 }
