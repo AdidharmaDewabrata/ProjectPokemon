@@ -2,6 +2,8 @@ package panel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import javax.sound.sampled.*;
 
 public class BattlePage extends JPanel {
     private Image background;

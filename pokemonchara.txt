@@ -1,13 +1,13 @@
 Pikachu ELECTRIC 105 55 40
 Charizard FIRE 156 84 78
 Blastoise WATER 140 82 83
-Venusaur GRASS 145 82 83
-Infernape FIGHTING 130 79 71
-Snorlax NORMAL 200 70 80
 Clefable FAIRY 120 70 73
-Masquerain FLYING 120 60 62
 Marowak GROUND 115 65 110
 Dragonite DRAGON 150 85 75
+Snorlax NORMAL 200 70 80
+Infernape FIGHTING 130 79 71
+Venusaur GRASS 145 82 83
 Galvantula BUG 130 77 60
+Masquerain FLYING 120 60 62
 Glaceon ICE 120 60 80
 
