@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class ChoosePlayer1 extends JPanel {
-    public static int p1pick;
+    private int[] p1pick = new int[2];
     private Image back;
     private JLabel[] pokemonImage = new JLabel[12], pokemonName = new JLabel[12];
     private int j = 0, p = 5;;
@@ -205,6 +205,7 @@ public class ChoosePlayer1 extends JPanel {
 
         next.addActionListener(e -> {
             if(flag) {
+                p1pick[0] = j;
                 next.setText("Confirm");
                 pokemonImage[j].setVisible(false);
                 labelz[j].setVisible(false);
@@ -245,9 +246,15 @@ public class ChoosePlayer1 extends JPanel {
                 labelStatContainer[j].setVisible(true);
                 flag = false;
             }
-            else{
-                cardLayout.show(cardPanelContainer, "panel.BattlePage");
-            }
+                else{
+                    p1pick[1] = j;
+                    PreBattle preBattle = new PreBattle(cardLayout, cardPanelContainer, p1pick[0],p1pick[1]);
+                    cardPanelContainer.add(preBattle,"panel.PreBattle");
+                    cardLayout.show(cardPanelContainer, "panel.PreBattle");
+//                    BattlePage battlePage = new BattlePage(cardLayout, cardPanelContainer,p1pick[0],p1pick[1]);
+//                    cardPanelContainer.add(battlePage,"panel.BattlePage");
+//                    cardLayout.show(cardPanelContainer, "panel.BattlePage");
+                }
         });
 
     }
