@@ -6,9 +6,15 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
+import java.net.URL;
 import java.util.Scanner;
+import javax.sound.sampled.*;
 
 public class ChoosePlayer1 extends JPanel {
+    private Image backgroundImage;
+    public static final String CHOOSEPLAYER_MUSIC = "choose_player.wav";
+    private static Clip clip;
+
     private int[] p1pick = new int[2];
     private Image back;
     private JLabel[] pokemonImage = new JLabel[12], pokemonName = new JLabel[12];
@@ -145,18 +151,18 @@ public class ChoosePlayer1 extends JPanel {
         setComponentZOrder(pokemonImage[0],0);
 
         right.addMouseListener(new MouseAdapter() {
-           @Override
+            @Override
             public void mouseClicked(MouseEvent e) {
-               if(j<11) {
-                   j++;
-                   pokemonImage[j - 1].setVisible(false);
-                   pokemonImage[j].setVisible(true);
-                   labelz[j - 1].setVisible(false);
-                   labelz[j].setVisible(true);
-                   labelStatContainer[j - 1].setVisible(false);
-                   labelStatContainer[j].setVisible(true);
-               }
-           }
+                if(j<11) {
+                    j++;
+                    pokemonImage[j - 1].setVisible(false);
+                    pokemonImage[j].setVisible(true);
+                    labelz[j - 1].setVisible(false);
+                    labelz[j].setVisible(true);
+                    labelStatContainer[j - 1].setVisible(false);
+                    labelStatContainer[j].setVisible(true);
+                }
+            }
         });
 
         left.addMouseListener(new MouseAdapter() {
@@ -246,15 +252,15 @@ public class ChoosePlayer1 extends JPanel {
                 labelStatContainer[j].setVisible(true);
                 flag = false;
             }
-                else{
-                    p1pick[1] = j;
-                    PreBattle preBattle = new PreBattle(cardLayout, cardPanelContainer, p1pick[0],p1pick[1]);
-                    cardPanelContainer.add(preBattle,"panel.PreBattle");
-                    cardLayout.show(cardPanelContainer, "panel.PreBattle");
+            else{
+                p1pick[1] = j;
+                PreBattle preBattle = new PreBattle(cardLayout, cardPanelContainer, p1pick[0],p1pick[1]);
+                cardPanelContainer.add(preBattle,"panel.PreBattle");
+                cardLayout.show(cardPanelContainer, "panel.PreBattle");
 //                    BattlePage battlePage = new BattlePage(cardLayout, cardPanelContainer,p1pick[0],p1pick[1]);
 //                    cardPanelContainer.add(battlePage,"panel.BattlePage");
 //                    cardLayout.show(cardPanelContainer, "panel.BattlePage");
-                }
+            }
         });
 
     }
@@ -264,7 +270,45 @@ public class ChoosePlayer1 extends JPanel {
         super.paintComponent(g);
         g.drawImage(back, 0, 0, getWidth(), getHeight(), this);
     }
-}
 
+    public void startMusic() {
+        stopMusic();
+
+        Thread musicThread = new Thread(() -> {
+            try {
+                URL musicUrl = HomePage.class.getResource(CHOOSEPLAYER_MUSIC);
+                if (musicUrl == null) {
+                    System.err.println("File suara musik chooseplayer tidak ditemukan: " + CHOOSEPLAYER_MUSIC);
+                    System.err.println("Lokasi kelas chooseplayer : " + HomePage.class.getProtectionDomain().getCodeSource().getLocation());
+                    return;
+                }
+
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicUrl);
+
+                if (clip != null) {
+                    clip.close();
+                }
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                clip.start();
+                System.out.println("chooseplayer music started.");
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                System.err.println("Terjadi kesalahan saat memutar musik chooseplayer : " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+        musicThread.start();
+    }
+
+    public void stopMusic() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+            System.out.println("Homepage music stopped.");
+        }
+    }
+}
 
 
