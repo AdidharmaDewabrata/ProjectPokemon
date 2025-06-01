@@ -1,11 +1,20 @@
 package panel;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Arrays;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import javax.sound.sampled.*;
 
 public class Showcase extends JPanel {
+    private Image backgroundImage;
+    public static final String HOMEPAGE_MUSIC = "homepage.wav";
+    private static Clip clip;
     // Subkelas untuk panel dengan latar belakang gambar
     private static class BgPanel extends JPanel {
         private final Image background;
@@ -134,8 +143,60 @@ public class Showcase extends JPanel {
             cardLayout.show(cardPanelContainer, "panel.ChoosePlayer1");
         });
         back.addActionListener(e -> {
-            cardLayout.show(cardPanelContainer, "panel.LandingPage");
+            cardLayout.show(cardPanelContainer, "panel.HomePage");
         });
+
+
+
+        addHierarchyListener(new HierarchyListener() {
+            @Override
+            public void hierarchyChanged(HierarchyEvent e) {
+                if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                    if (isShowing()) {
+                        startMusic();
+                    } else {
+                        stopMusic();
+                    }
+                }
+            }
+        });
+    }
+    public void startMusic() {
+        stopMusic();
+        Thread musicThread = new Thread(() -> {
+            try {
+                URL musicUrl = HomePage.class.getResource(HOMEPAGE_MUSIC);
+                if (musicUrl == null) {
+                    System.err.println("File suara musik Homepage tidak ditemukan: " + HOMEPAGE_MUSIC);
+                    System.err.println("Lokasi kelas HomePage: " + HomePage.class.getProtectionDomain().getCodeSource().getLocation());
+                    return;
+                }
+
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicUrl);
+
+                if (clip != null) {
+                    clip.close();
+                }
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                clip.start();
+                System.out.println("Homepage music started.");
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                System.err.println("Terjadi kesalahan saat memutar musik Homepage: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+        musicThread.start();
+    }
+
+    public void stopMusic() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+            System.out.println("Homepage music stopped.");
+        }
     }
 
     // Main method untuk testing
