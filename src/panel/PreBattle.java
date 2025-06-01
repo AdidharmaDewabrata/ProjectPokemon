@@ -79,7 +79,6 @@ public class PreBattle extends JPanel {
 
         //pokemon 1&2
 
-
     }
 
     @Override
