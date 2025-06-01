@@ -1,5 +1,7 @@
 package pokemon;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +14,9 @@ public class Pokemon {
     private List<Move> moves;
     private String spritesPath;
 
-    public Pokemon(String name, Type type, int health, int attack, int defense) {
+    public Pokemon(String name, String type, int health, int attack, int defense) {
         this.name = name;
-        this.type = type;
+        this.type = Type.valueOf(type);
         this.health = health;
         this.attack = attack;
         this.defense = defense;
@@ -73,6 +75,12 @@ public class Pokemon {
 
     public boolean isFainted() {
         return health <= 0;
+    }
+
+    public ImageIcon getTypeImage(int x, int y) {
+        ImageIcon image = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Types\\"+type+".png");
+        Image scaled = image.getImage().getScaledInstance(x, y, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaled); // ✅ Return ImageIcon
     }
 
     //buat cek masuk atau ga datanya
