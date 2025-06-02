@@ -6,9 +6,12 @@ import java.awt.*;
 public class BattlePage extends JPanel {
     private Image background;
 
-    public BattlePage(CardLayout cardLayout, JPanel cardPanelContainer) {
+    public BattlePage(CardLayout cardLayout, JPanel cardPanelContainer, int p1, int p2) {
         background = new ImageIcon("C:\\Users\\adksp\\Downloads\\6bea12ee9c7b069e8bdcf74726fdd299.jpg").getImage();
         setLayout(null);
+
+        System.out.println("ini p1: "+p1);
+        System.out.println("ini p2: "+p2);
 
         JPanel greenBox = new JPanel();
         greenBox.setBounds(0, 700, 1920, 180);

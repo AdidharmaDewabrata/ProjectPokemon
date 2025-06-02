@@ -3,8 +3,14 @@ package panel;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import javax.sound.sampled.*;
+import java.io.IOException;
+import java.net.URL;
+
 public class HomePage extends JPanel {
     private Image backgroundImage;
+    public static final String HOMEPAGE_MUSIC = "homepage.wav";
+    private static Clip clip;
 
     public HomePage(CardLayout cardLayout, JPanel cardPanelContainer) { // Mengganti 'panel' menjadi 'cardPanelContainer' agar lebih jelas
         // Memuat gambar latar belakang saat objek HomePage dibuat
@@ -29,17 +35,17 @@ public class HomePage extends JPanel {
         pods.setBounds(250, -30, podium.getIconWidth(), podium.getIconHeight());
 
         JButton play = new JButton("Play");
-        play.setBounds(1100, 250, 250, 75);
+        play.setBounds(1000, 250, 250, 75);
         play.setBackground(Color.decode("#fcdc59"));
         play.setFont(new Font("Tahoma", Font.BOLD, 40));
 
         JButton see = new JButton("See Pokemon's");
-        see.setBounds(1100, 400, 250, 75);
+        see.setBounds(1000, 400, 250, 75);
         see.setBackground(Color.decode("#aae6ff"));
         see.setFont(new Font("Tahoma", Font.BOLD, 25));
 
         JButton back = new JButton("Back");
-        back.setBounds(1100, 550, 250, 75);
+        back.setBounds(1000, 550, 250, 75);
         back.setBackground(Color.decode("#f23041"));
         back.setFont(new Font("Tahoma", Font.BOLD, 40));
 
@@ -53,16 +59,19 @@ public class HomePage extends JPanel {
         // Ini ke player 1 pick pokemon (pre-battle)
         play.addActionListener(e -> {
             cardLayout.show(cardPanelContainer, "panel.ChoosePlayer1");
+            stopMusic();
         });
 
         // Lihat pokemon list
         see.addActionListener(e -> {
             cardLayout.show(cardPanelContainer, "panel.Showcase");
+            stopMusic();
         });
 
         //back to landingpage
         back.addActionListener(e -> {
             cardLayout.show(cardPanelContainer, "panel.LandingPage");
+//            stopMusic();
         });
 
         JLabel blastoise = new JLabel();
@@ -79,6 +88,19 @@ public class HomePage extends JPanel {
         add(charizard);
         setComponentZOrder(charizard,0);
 
+        //kontrol musik otomatis
+        addHierarchyListener(new HierarchyListener() {
+            @Override
+            public void hierarchyChanged(HierarchyEvent e) {
+                if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                    if (isShowing()) {
+                        startMusic();
+                    } else {
+                        stopMusic();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -87,6 +109,45 @@ public class HomePage extends JPanel {
         // Gambar gambar latar belakang memenuhi seluruh area HomePage
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
+    public void startMusic() {
+        stopMusic();
+
+        Thread musicThread = new Thread(() -> {
+            try {
+                URL musicUrl = HomePage.class.getResource(HOMEPAGE_MUSIC);
+                if (musicUrl == null) {
+                    System.err.println("File suara musik Homepage tidak ditemukan: " + HOMEPAGE_MUSIC);
+                    System.err.println("Lokasi kelas HomePage: " + HomePage.class.getProtectionDomain().getCodeSource().getLocation());
+                    return;
+                }
+
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicUrl);
+
+                if (clip != null) {
+                    clip.close();
+                }
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                clip.start();
+                System.out.println("Homepage music started.");
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                System.err.println("Terjadi kesalahan saat memutar musik Homepage: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+        musicThread.start();
+    }
+
+    public void stopMusic() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+            System.out.println("Homepage music stopped.");
         }
     }
 }

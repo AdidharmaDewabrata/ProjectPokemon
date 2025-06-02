@@ -1,12 +1,19 @@
 package panel;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+import java.net.URL;
+import javax.sound.sampled.*;
 
 public class LandingPage extends JPanel {
+    public static final String LANDINGPAGE_MUSIC = "landingpage.wav";
+    private static Clip clip;
     public LandingPage(CardLayout cardLayout, JPanel mainPanel) {
         this.setLayout(new BorderLayout());
-        Image back = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\poopermon.jpg").getImage();
+        Image back = new ImageIcon("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemonGUI\\src\\assets\\Poopermon.jpg").getImage();
         JPanel panel = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -58,7 +65,6 @@ public class LandingPage extends JPanel {
 
         // Event listener
         start.addActionListener(e -> {
-            // Contoh: show panel "menu"
             cardLayout.show(mainPanel, "panel.HomePage");
         });
 
@@ -69,5 +75,58 @@ public class LandingPage extends JPanel {
         exitGame.addActionListener(e -> {
             System.exit(0);
         });
+
+        addHierarchyListener(new HierarchyListener() {
+            @Override
+            public void hierarchyChanged(HierarchyEvent e) {
+                if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                    if (isShowing()) {
+                        startMusic();
+                    } else {
+                        stopMusic();
+                    }
+                }
+            }
+        });
+
     }
+    public void startMusic() {
+        stopMusic(); // Pastikan menghentikan jika sudah bermain
+
+        Thread musicThread = new Thread(() -> {
+            try {
+                URL musicUrl = LandingPage.class.getResource(LANDINGPAGE_MUSIC);
+                if (musicUrl == null) {
+                    System.err.println("File suara musik LandingPage tidak ditemukan: " + LANDINGPAGE_MUSIC);
+                    return;
+                }
+
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicUrl);
+
+                if (clip != null) {
+                    clip.close();
+                }
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                clip.start();
+                System.out.println("LandingPage music started.");
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                System.err.println("Terjadi kesalahan saat memutar musik LandingPage: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+        musicThread.start();
+    }
+
+    // Metode untuk menghentikan musik LandingPage
+    public void stopMusic() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+            System.out.println("LandingPage music stopped.");
+        }
+    }
+
 }
