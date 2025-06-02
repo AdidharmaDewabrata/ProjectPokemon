@@ -1,4 +1,8 @@
 package panel;
+import pokemon.Pokemon;
+import pokemon.Battle;
+import pokemon.Move;
+import panel.Animation;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
 import java.io.IOException;
@@ -15,9 +19,11 @@ public class Showcase extends JPanel {
     private Image backgroundImage;
     public static final String HOMEPAGE_MUSIC = "homepage.wav";
     private static Clip clip;
+
     // Subkelas untuk panel dengan latar belakang gambar
     private static class BgPanel extends JPanel {
         private final Image background;
+
         //biar pasti bakal kepanggil pake class
         public BgPanel(String imagePath) {
             this.background = new ImageIcon(imagePath).getImage();
@@ -28,6 +34,9 @@ public class Showcase extends JPanel {
             super.paintComponent(g);
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
         }
+    }
+
+    public Showcase() {
     }
 
     public Showcase(CardLayout cardLayout, JPanel cardPanelContainer) {
@@ -41,7 +50,7 @@ public class Showcase extends JPanel {
 
         //buat container/panel biar mereka diisinya diposisiin di atas kayak di ui nya
         JLabel containpoke = new JLabel();
-        containpoke.setBounds(20, 30, 800, 600 );
+        containpoke.setBounds(20, 30, 800, 600);
         containpoke.setLayout(new BorderLayout());
         containpoke.setBackground(Color.decode("#1f867b"));
         containpoke.setOpaque(true); // ini wajib
@@ -100,7 +109,7 @@ public class Showcase extends JPanel {
         for (int i = 0; i < 12; i++) {
             //buat masukin pokemonnya
             JPanel pokeBox = new JPanel(new BorderLayout());
-            pokeBox.setPreferredSize(new Dimension(150,150));
+            pokeBox.setPreferredSize(new Dimension(150, 150));
             pokeBox.setBackground(Color.decode("#c4cd8e"));
 
             //buat nama tiap pokemonnya
@@ -127,25 +136,25 @@ public class Showcase extends JPanel {
         this.add(bgPanel, BorderLayout.CENTER);
 
         //tombol play sama back
-        JButton play = new JButton("Play");
-        play.setBounds(1100, 250, 250, 75);
-        play.setBackground(Color.decode("#aae6ff"));
-        play.setFont(new Font("Tahoma", Font.BOLD, 40));
-        this.add(play);
+//        // BUTTON AREA
+//        JButton play = new JButton("Play");
+//        play.setBounds(1100, 250, 150, 75);
+//        play.setBackground(Color.decode("#aae6ff"));
+//        play.setFont(new Font("Tahoma", Font.BOLD, 24));
+//        bgPanel.add(play);
+//
+//        JButton back = new JButton("Back");
+//        back.setBounds(1100, 550, 150, 75);
+//        back.setBackground(Color.decode("#fcdc59"));
+//        back.setFont(new Font("Tahoma", Font.BOLD, 24));
+//        bgPanel.add(back);
 
-        JButton back = new JButton("Back");
-        back.setBounds(1100, 550, 250, 75);
-        back.setBackground(Color.decode("#fcdc59"));
-        back.setFont(new Font("Tahoma", Font.BOLD, 40));
-        this.add(back);
-
-        play.addActionListener(e -> {
-            cardLayout.show(cardPanelContainer, "panel.ChoosePlayer1");
-        });
-        back.addActionListener(e -> {
-            cardLayout.show(cardPanelContainer, "panel.HomePage");
-        });
-
+//        play.addActionListener(e -> {
+//            cardLayout.show(cardPanelContainer, "panel.ChoosePlayer1");
+//        });
+//        back.addActionListener(e -> {
+//            cardLayout.show(cardPanelContainer, "panel.HomePage");
+//        });
 
 
         addHierarchyListener(new HierarchyListener() {
@@ -161,6 +170,7 @@ public class Showcase extends JPanel {
             }
         });
     }
+
     public void startMusic() {
         stopMusic();
         Thread musicThread = new Thread(() -> {
@@ -200,13 +210,14 @@ public class Showcase extends JPanel {
     }
 
     // Main method untuk testing
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame("Showcase Page Test");
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            frame.setContentPane(new Showcase());
-//            frame.pack(); // ukur berdasarkan preferred size panel
-//            frame.setLocationRelativeTo(null);
-//            frame.setVisible(true);
-//        });
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Showcase Page Test");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setContentPane(new Showcase());
+            frame.pack(); // ukur berdasarkan preferred size panel
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        });
+    }
 }

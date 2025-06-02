@@ -13,9 +13,10 @@ public class Base extends JFrame {
     private LandingPage landingPage;
     private HomePage homePage;
     private ChoosePlayer1 choosePlayer1;
-    private ChoosePlayer2 choosePlayer2;
+    //private ChoosePlayer2 choosePlayer2;
     private Battle battle;
     private PreBattle preBattle;
+    private Showcase showcase;
 
     public Base() {
         this.setTitle("PooperMon");
@@ -43,10 +44,9 @@ public class Base extends JFrame {
         HomePage homePage = new HomePage(cardLayout, mainPanel);
         Showcase showcase = new Showcase(cardLayout, mainPanel);
         ChoosePlayer1 choosePlayer1 = new ChoosePlayer1(cardLayout, mainPanel);
-        ChoosePlayer2 choosePlayer2 = new ChoosePlayer2(cardLayout, mainPanel);
-        PreBattle preBattle = new PreBattle(cardLayout, mainPanel);
-        BattlePage battlePage = new BattlePage(cardLayout, mainPanel);
-        Showcase showcase = new Showcase(cardLayout, mainPanel);
+        //ChoosePlayer2 choosePlayer2 = new ChoosePlayer2(cardLayout, mainPanel);
+        //PreBattle preBattle = new PreBattle(cardLayout, mainPanel);
+        //BattlePage battlePage = new BattlePage(cardLayout, mainPanel);
 
         // Masukkan ke card layout
         mainPanel.add(landingPage, "panel.LandingPage");
@@ -55,7 +55,7 @@ public class Base extends JFrame {
         mainPanel.add(choosePlayer1, "panel.ChoosePlayer1");
         mainPanel.add(choosePlayer2, "panel.ChoosePlayer2");
         mainPanel.add(preBattle, "panel.PreBattle");
-        mainPanel.add(battlePage, "panel.BattlePage");
+        //mainPanel.add(battlePage, "panel.BattlePage");
         mainPanel.add(showcase, "panel.Showcase");
 
         // Set tampilan awal

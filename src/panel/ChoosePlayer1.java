@@ -74,7 +74,7 @@ public class ChoosePlayer1 extends JPanel {
             int def = Integer.parseInt(dataPokemon[i][4]);
             String c = dataPokemon[i][5];
 
-            pokemon[i] = new Pokemon(s, w, hp, att, def, c);
+            pokemon[i] = new Pokemon(s, w, hp, att, def);
         }
 
         //ganti pokemon
@@ -221,7 +221,7 @@ public class ChoosePlayer1 extends JPanel {
                 new Animation(p1, pokemonlist[j], "front", 150, 150).start();
                 p1.setBounds(255, 80, 150, 150);
                 show.add(p1);
-                show.setBackground(Color.decode(pokemon[j].getColor()));
+                //show.setBackground(Color.decode(pokemon[j].getColor()));
                 p1stats[0] = new JLabel("HP: "+pokemon[j].getHealth());
                 p1stats[1] = new JLabel("ATT: "+pokemon[j].getAttack());
                 p1stats[2] = new JLabel("DEF: "+pokemon[j].getDefense());
@@ -310,5 +310,4 @@ public class ChoosePlayer1 extends JPanel {
         }
     }
 }
-
 

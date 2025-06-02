@@ -1,4 +1,5 @@
 package pokemon;
+import pokemon.Move;
 
 import javax.swing.*;
 import java.awt.*;
