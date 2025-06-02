@@ -35,12 +35,14 @@ public class Base extends JFrame {
         HomePage homePage = new HomePage(cardLayout, mainPanel);
         ChoosePlayer1 choosePlayer1 = new ChoosePlayer1(cardLayout, mainPanel);
         BattlePage battlePage = new BattlePage(cardLayout, mainPanel);
+        Showcase showcase = new Showcase(cardLayout, mainPanel);
 
         // Masukkan ke card layout
         mainPanel.add(landingPage, "panel.LandingPage");
         mainPanel.add(homePage, "panel.HomePage");
         mainPanel.add(choosePlayer1, "panel.ChoosePlayer1");
         mainPanel.add(battlePage, "panel.BattlePage");
+        mainPanel.add(showcase, "panel.Showcase");
 
         // Set tampilan awal
         this.setContentPane(mainPanel);

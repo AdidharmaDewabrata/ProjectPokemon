@@ -6,7 +6,7 @@ import java.awt.*;
 public class LandingPage extends JPanel {
     public LandingPage(CardLayout cardLayout, JPanel mainPanel) {
         this.setLayout(new BorderLayout());
-        Image back = new ImageIcon("C:\\Users\\adksp\\Downloads\\Sprites\\Heading.jpg").getImage();
+        Image back = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\poopermon.jpg").getImage();
         JPanel panel = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -59,7 +59,7 @@ public class LandingPage extends JPanel {
         // Event listener
         start.addActionListener(e -> {
             // Contoh: show panel "menu"
-            cardLayout.show(mainPanel, "menu");
+            cardLayout.show(mainPanel, "panel.HomePage");
         });
 
         history.addActionListener(e -> {

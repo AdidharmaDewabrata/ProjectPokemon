@@ -57,7 +57,7 @@ public class HomePage extends JPanel {
 
         // Lihat pokemon list
         see.addActionListener(e -> {
-            cardLayout.show(cardPanelContainer, "pokemonList");
+            cardLayout.show(cardPanelContainer, "panel.Showcase");
         });
 
         //back to landingpage

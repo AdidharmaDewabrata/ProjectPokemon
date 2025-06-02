@@ -122,13 +122,13 @@ public class Showcase extends JPanel {
         play.setBounds(1100, 250, 250, 75);
         play.setBackground(Color.decode("#aae6ff"));
         play.setFont(new Font("Tahoma", Font.BOLD, 40));
-        add(play);
+        this.add(play);
 
         JButton back = new JButton("Back");
         back.setBounds(1100, 550, 250, 75);
         back.setBackground(Color.decode("#fcdc59"));
         back.setFont(new Font("Tahoma", Font.BOLD, 40));
-        add(back);
+        this.add(back);
 
         play.addActionListener(e -> {
             cardLayout.show(cardPanelContainer, "panel.ChoosePlayer1");
