@@ -14,7 +14,7 @@ public class ChoosePlayer1 extends JPanel {
     private Image backgroundImage;
     public static final String CHOOSEPLAYER_MUSIC = "choose_player.wav";
     private static Clip clip;
-
+    static Pokemon[] pokemon = new Pokemon[12];
     private int[] p1pick = new int[2];
     private Image back;
     private JLabel[] pokemonImage = new JLabel[12], pokemonName = new JLabel[12];

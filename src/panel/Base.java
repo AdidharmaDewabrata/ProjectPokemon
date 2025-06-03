@@ -53,7 +53,7 @@ public class Base extends JFrame {
         mainPanel.add(homePage, "panel.HomePage");
         mainPanel.add(showcase, "panel.Showcase");
         mainPanel.add(choosePlayer1, "panel.ChoosePlayer1");
-        mainPanel.add(choosePlayer2, "panel.ChoosePlayer2");
+        //mainPanel.add(choosePlayer2, "panel.ChoosePlayer2");
         mainPanel.add(preBattle, "panel.PreBattle");
         //mainPanel.add(battlePage, "panel.BattlePage");
         mainPanel.add(showcase, "panel.Showcase");

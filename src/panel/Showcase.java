@@ -136,25 +136,25 @@ public class Showcase extends JPanel {
         this.add(bgPanel, BorderLayout.CENTER);
 
         //tombol play sama back
-//        // BUTTON AREA
-//        JButton play = new JButton("Play");
-//        play.setBounds(1100, 250, 150, 75);
-//        play.setBackground(Color.decode("#aae6ff"));
-//        play.setFont(new Font("Tahoma", Font.BOLD, 24));
-//        bgPanel.add(play);
-//
-//        JButton back = new JButton("Back");
-//        back.setBounds(1100, 550, 150, 75);
-//        back.setBackground(Color.decode("#fcdc59"));
-//        back.setFont(new Font("Tahoma", Font.BOLD, 24));
-//        bgPanel.add(back);
+        // BUTTON AREA
+        JButton play = new JButton("Play");
+        play.setBounds(1100, 250, 150, 75);
+        play.setBackground(Color.decode("#aae6ff"));
+        play.setFont(new Font("Tahoma", Font.BOLD, 24));
+        bgPanel.add(play);
 
-//        play.addActionListener(e -> {
-//            cardLayout.show(cardPanelContainer, "panel.ChoosePlayer1");
-//        });
-//        back.addActionListener(e -> {
-//            cardLayout.show(cardPanelContainer, "panel.HomePage");
-//        });
+        JButton back = new JButton("Back");
+        back.setBounds(1100, 550, 150, 75);
+        back.setBackground(Color.decode("#fcdc59"));
+        back.setFont(new Font("Tahoma", Font.BOLD, 24));
+        bgPanel.add(back);
+
+        play.addActionListener(e -> {
+            cardLayout.show(cardPanelContainer, "panel.ChoosePlayer1");
+        });
+        back.addActionListener(e -> {
+            cardLayout.show(cardPanelContainer, "panel.HomePage");
+        });
 
 
         addHierarchyListener(new HierarchyListener() {

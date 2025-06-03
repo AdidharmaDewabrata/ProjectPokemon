@@ -19,7 +19,7 @@ public class PreBattle extends JPanel {
     };
 
     public PreBattle(CardLayout cardLayout, JPanel cardPanelContainer, int p1_idx, int p2_idx) {
-        back = new ImageIcon("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemonGUI\\src\\assets\\bg_prebattle.png").getImage();
+        back = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\bg_prebattle.png").getImage();
         setLayout(null);
 
         URL podiumUrl = getClass().getResource("/assets/podium.png");

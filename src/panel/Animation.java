@@ -17,12 +17,12 @@ private JLabel label;
         Image[] scaled2 = new Image[244];
         ImageIcon[] blastoiseBack = new ImageIcon[244];
         for(int i = 0; i < 244; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Blastoise Back\\blastoise (1)-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Blastoise Back\\blastoise (1)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             blastoiseBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 244; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Blastoise Front\\blastoise-export"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Blastoise Front\\blastoise-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             blastoiseFront[i] = new ImageIcon(scaled2[i]);
         }
@@ -41,12 +41,12 @@ private JLabel label;
         Image[] scaled2 = new Image[102];
         ImageIcon[] clefableBack = new ImageIcon[102];
         for(int i = 0; i < 102; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Clefable Back\\clefable (back)-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Clefable Back\\clefable (back)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             clefableBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 102; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Clefable Front\\clefable-export"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Clefable Front\\clefable-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             clefableFront[i] = new ImageIcon(scaled2[i]);
         }
@@ -65,12 +65,12 @@ private JLabel label;
         Image[] scaled2 = new Image[102];
         ImageIcon[] dragoniteBack = new ImageIcon[102];
         for(int i = 0; i < 102; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Dragonite Back\\dragonite (1)-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Dragonite Back\\dragonite (1)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             dragoniteBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 102; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Dragonite Front\\dragonite-export"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Dragonite Front\\dragonite-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             dragoniteFront[i] = new ImageIcon(scaled2[i]);
         }
@@ -89,12 +89,12 @@ private JLabel label;
         Image[] scaled2 = new Image[143];
         ImageIcon[] galvantulaBack = new ImageIcon[143];
         for(int i = 0; i < 143; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Galvantula Back\\galvantula-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Galvantula Back\\galvantula-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             galvantulaBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 143; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Galvantula Front\\galvantula-export"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Galvantula Front\\galvantula-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             galvantulaFront[i] = new ImageIcon(scaled2[i]);
         }
@@ -113,12 +113,12 @@ private JLabel label;
         Image[] scaled2 = new Image[171];
         ImageIcon[] glaceonBack = new ImageIcon[171];
         for(int i = 0; i < 171; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Glaceon Back\\glaceon (1)-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Glaceon Back\\glaceon (1)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             glaceonBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 171; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Glaceon Front\\glaceon-export"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Glaceon Front\\glaceon-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             glaceonFront[i] = new ImageIcon(scaled2[i]);
         }
@@ -137,12 +137,12 @@ private JLabel label;
         Image[] scaled2 = new Image[143];
         ImageIcon[] charizardBack = new ImageIcon[143];
         for(int i = 0; i < 143; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Charizard Back\\charizard (1)-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Charizard Back\\charizard (1)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             charizardBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 143; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Charizard Front\\charizard-export"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Charizard Front\\charizard-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             charizardFront[i] = new ImageIcon(scaled2[i]);
         }
@@ -161,12 +161,12 @@ private JLabel label;
         Image[] scaled2 = new Image[133];
         ImageIcon[] infernapeBack = new ImageIcon[133];
         for(int i = 0; i < 133; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Infernape Back\\infernape (1)-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Infernape Back\\infernape (1)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             infernapeBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 133; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Infernape Front\\infernape-export"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Infernape Front\\infernape-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             infernapeFront[i] = new ImageIcon(scaled2[i]);
         }
@@ -185,12 +185,12 @@ private JLabel label;
         Image[] scaled2 = new Image[133];
         ImageIcon[] marowakBack = new ImageIcon[133];
         for(int i = 0; i < 133; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Marowak Back\\marowak (1)-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Marowak Back\\marowak (1)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             marowakBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 133; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Marowak Front\\marowak-export"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Marowak Front\\marowak-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             marowakFront[i] = new ImageIcon(scaled2[i]);
         }
@@ -209,12 +209,12 @@ private JLabel label;
         Image[] scaled2 = new Image[171];
         ImageIcon[] masquerainBack = new ImageIcon[171];
         for(int i = 0; i < 171; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Masquerain Back\\masquerain (1)-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Masquerain Back\\masquerain (1)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             masquerainBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 171; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Masquerain Front\\masquerain-export"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Masquerain Front\\masquerain-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             masquerainFront[i] = new ImageIcon(scaled2[i]);
         }
@@ -233,12 +233,12 @@ private JLabel label;
         Image[] scaled2 = new Image[113];
         ImageIcon[] pikachuBack = new ImageIcon[113];
         for(int i = 0; i < 113; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Pikachu Back\\pikachu (1)-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Pikachu Back\\pikachu (1)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             pikachuBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 113; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Pikachu Front\\pikachu-export"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Pikachu Front\\pikachu-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             pikachuFront[i] = new ImageIcon(scaled2[i]);
         }
@@ -257,12 +257,12 @@ private JLabel label;
         Image[] scaled2 = new Image[173];
         ImageIcon[] snorlaxBack = new ImageIcon[173];
         for(int i = 0; i < 173; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Snorlax Back\\snorlax (1)-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Snorlax Back\\snorlax (1)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             snorlaxBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 113; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Snorlax Front\\snorlax-export"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Snorlax Front\\snorlax-export"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             snorlaxFront[i] = new ImageIcon(scaled2[i]);
         }
@@ -281,12 +281,12 @@ private JLabel label;
         Image[] scaled2 = new Image[87];
         ImageIcon[] venusaurBack = new ImageIcon[87];
         for(int i = 0; i < 87; i++){
-            Back[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Venusaur Back\\venusaur (back)-export"+(i+1)+".png");
+            Back[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Venusaur Back\\venusaur (back)-export"+(i+1)+".png");
             scaled1[i] = Back[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             venusaurBack[i] = new ImageIcon(scaled1[i]);
         }
         for(int i = 0; i < 87; i++){
-            Front[i] = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Venusaur Front\\venusaur-"+(i+1)+".png");
+            Front[i] = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Venusaur Front\\venusaur-"+(i+1)+".png");
             scaled2[i] = Front[i].getImage().getScaledInstance(x,y,Image.SCALE_SMOOTH);
             venusaurFront[i] = new ImageIcon(scaled2[i]);
         }
