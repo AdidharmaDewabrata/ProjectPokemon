@@ -45,8 +45,9 @@ public class Base extends JFrame {
         Showcase showcase = new Showcase(cardLayout, mainPanel);
         ChoosePlayer1 choosePlayer1 = new ChoosePlayer1(cardLayout, mainPanel);
         //ChoosePlayer2 choosePlayer2 = new ChoosePlayer2(cardLayout, mainPanel);
-        //PreBattle preBattle = new PreBattle(cardLayout, mainPanel);
-        //BattlePage battlePage = new BattlePage(cardLayout, mainPanel);
+        PreBattle preBattle = new PreBattle(cardLayout, mainPanel, 1 , 2);
+        BattlePage battlePage = new BattlePage(cardLayout, mainPanel, 1, 2);
+        DetailPokemon detailPokemon = new DetailPokemon(cardLayout, mainPanel);
 
         // Masukkan ke card layout
         mainPanel.add(landingPage, "panel.LandingPage");
@@ -55,8 +56,9 @@ public class Base extends JFrame {
         mainPanel.add(choosePlayer1, "panel.ChoosePlayer1");
         //mainPanel.add(choosePlayer2, "panel.ChoosePlayer2");
         mainPanel.add(preBattle, "panel.PreBattle");
-        //mainPanel.add(battlePage, "panel.BattlePage");
+        mainPanel.add(battlePage, "panel.BattlePage");
         mainPanel.add(showcase, "panel.Showcase");
+        mainPanel.add(detailPokemon, "panel.DetailPokemon");
 
         // Set tampilan awal
         this.setContentPane(mainPanel);

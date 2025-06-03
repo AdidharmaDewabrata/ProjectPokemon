@@ -23,7 +23,7 @@ public class ChoosePlayer1 extends JPanel {
     public ChoosePlayer1(CardLayout cardLayout, JPanel cardPanelContainer) {
         Scanner sc;
         this.setLayout(null);
-        back = new ImageIcon("C:\\Users\\adksp\\Downloads\\de1bb37306257d5cd20a87c3df39a108.jpg").getImage();
+        back = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\hutanlendir.jpg").getImage();
 
         //Player 1 label
         JLabel player1 = new JLabel("Player 1");
@@ -36,12 +36,12 @@ public class ChoosePlayer1 extends JPanel {
         add(player1);
 
         //arrow kanan
-        JLabel right = new JLabel(new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\right.png"));
+        JLabel right = new JLabel(new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\ArRight.png"));
         right.setBounds(940,300,100,100);
         add(right);
 
         //arrow kiri
-        JLabel left = new JLabel(new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\left.png"));
+        JLabel left = new JLabel(new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\ArLeft.png"));
         left.setBounds(550,300,100,100);
         add(left);
 

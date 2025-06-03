@@ -1,8 +1,4 @@
 package panel;
-import pokemon.Pokemon;
-import pokemon.Battle;
-import pokemon.Move;
-import panel.Animation;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
 import java.io.IOException;
@@ -34,9 +30,6 @@ public class Showcase extends JPanel {
             super.paintComponent(g);
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
         }
-    }
-
-    public Showcase() {
     }
 
     public Showcase(CardLayout cardLayout, JPanel cardPanelContainer) {
@@ -108,9 +101,12 @@ public class Showcase extends JPanel {
         // Tambahkan gambar ke grid, ini buat kotak backgroudnnya dulu aja
         for (int i = 0; i < 12; i++) {
             //buat masukin pokemonnya
-            JPanel pokeBox = new JPanel(new BorderLayout());
+            //dijadiin button biar bisa masuk ke detail dari tiap pokemon
+            JButton pokeBox = new JButton();
+            pokeBox.setLayout(new BorderLayout());
             pokeBox.setPreferredSize(new Dimension(150, 150));
             pokeBox.setBackground(Color.decode("#c4cd8e"));
+            pokeBox.setFocusPainted(false);
 
             //buat nama tiap pokemonnya
             JLabel pokeName = new JLabel(pokeNames.get(i));
@@ -124,6 +120,14 @@ public class Showcase extends JPanel {
             pokeLabel.setVerticalAlignment(SwingConstants.CENTER);
             pokeBox.add(pokeLabel, BorderLayout.CENTER);
 
+            int j = i;
+            pokeBox.addActionListener(e -> {
+                String selectedPokemon = pokeNames.get(j);
+                DetailPokemon detailPanel = new DetailPokemon(selectedPokemon); // <-- lewatkan data
+                cardPanelContainer.add(detailPanel, "panel.DetailPokemon");
+                cardLayout.show(cardPanelContainer, "panel.DetailPokemon");
+            });
+
             scp.add(pokeBox);
         }
 
@@ -132,22 +136,26 @@ public class Showcase extends JPanel {
 
         bgPanel.add(kotak, BorderLayout.CENTER);
 
-        // Tambahkan bgPanel ke panel utama
-        this.add(bgPanel, BorderLayout.CENTER);
-
         //tombol play sama back
-        // BUTTON AREA
         JButton play = new JButton("Play");
-        play.setBounds(1100, 250, 150, 75);
+        //play.setBounds(950, 250, 250, 75);
         play.setBackground(Color.decode("#aae6ff"));
-        play.setFont(new Font("Tahoma", Font.BOLD, 24));
-        bgPanel.add(play);
+        play.setFont(new Font("Tahoma", Font.BOLD, 40));
+//        bgPanel.add(play);
 
         JButton back = new JButton("Back");
-        back.setBounds(1100, 550, 150, 75);
+        //back.setBounds(950, 550, 250, 75);
         back.setBackground(Color.decode("#fcdc59"));
-        back.setFont(new Font("Tahoma", Font.BOLD, 24));
-        bgPanel.add(back);
+        back.setFont(new Font("Tahoma", Font.BOLD, 40));
+//        bgPanel.add(back);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false);
+        buttonPanel.setPreferredSize(new Dimension(250, 75));
+        buttonPanel.add(play);
+        buttonPanel.add(back);
+        bgPanel.add(buttonPanel, BorderLayout.EAST);
+
 
         play.addActionListener(e -> {
             cardLayout.show(cardPanelContainer, "panel.ChoosePlayer1");
@@ -156,6 +164,8 @@ public class Showcase extends JPanel {
             cardLayout.show(cardPanelContainer, "panel.HomePage");
         });
 
+        // Tambahkan bgPanel ke panel utama
+        this.add(bgPanel, BorderLayout.CENTER);
 
         addHierarchyListener(new HierarchyListener() {
             @Override
@@ -209,15 +219,15 @@ public class Showcase extends JPanel {
         }
     }
 
-    // Main method untuk testing
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Showcase Page Test");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setContentPane(new Showcase());
-            frame.pack(); // ukur berdasarkan preferred size panel
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
+//    // Main method untuk testing
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            JFrame frame = new JFrame("Showcase Page Test");
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            frame.setContentPane(new Showcase());
+//            frame.pack(); // ukur berdasarkan preferred size panel
+//            frame.setLocationRelativeTo(null);
+//            frame.setVisible(true);
+//        });
+//    }
 }
