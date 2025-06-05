@@ -14,7 +14,7 @@ public class BattlePage extends JPanel {
     private static Clip clip;
 
     public BattlePage(CardLayout cardLayout, JPanel cardPanelContainer, int p1, int p2) {
-        background = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\panel\\6bea12ee9c7b069e8bdcf74726fdd299.jpg").getImage();
+        background = new ImageIcon("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemon\\src\\panel\\battleForest.jpg").getImage();
         setLayout(null);
 
         System.out.println("ini p1: "+p1);
