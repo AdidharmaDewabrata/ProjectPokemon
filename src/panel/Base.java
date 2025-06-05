@@ -13,7 +13,6 @@ public class Base extends JFrame {
     private LandingPage landingPage;
     private HomePage homePage;
     private ChoosePlayer1 choosePlayer1;
-    //private ChoosePlayer2 choosePlayer2;
     private Battle battle;
     private PreBattle preBattle;
     private Showcase showcase;
@@ -44,7 +43,6 @@ public class Base extends JFrame {
         HomePage homePage = new HomePage(cardLayout, mainPanel);
         Showcase showcase = new Showcase(cardLayout, mainPanel);
         ChoosePlayer1 choosePlayer1 = new ChoosePlayer1(cardLayout, mainPanel);
-        //ChoosePlayer2 choosePlayer2 = new ChoosePlayer2(cardLayout, mainPanel);
         PreBattle preBattle = new PreBattle(cardLayout, mainPanel, 1 , 2);
         BattlePage battlePage = new BattlePage(cardLayout, mainPanel, 1, 2);
         DetailPokemon detailPokemon = new DetailPokemon(cardLayout, mainPanel);
@@ -54,7 +52,6 @@ public class Base extends JFrame {
         mainPanel.add(homePage, "panel.HomePage");
         mainPanel.add(showcase, "panel.Showcase");
         mainPanel.add(choosePlayer1, "panel.ChoosePlayer1");
-        //mainPanel.add(choosePlayer2, "panel.ChoosePlayer2");
         mainPanel.add(preBattle, "panel.PreBattle");
         mainPanel.add(battlePage, "panel.BattlePage");
         mainPanel.add(showcase, "panel.Showcase");
@@ -71,7 +68,7 @@ public class Base extends JFrame {
                 if (landingPage != null) landingPage.stopMusic();
                 if (homePage != null) homePage.stopMusic();
                 if (choosePlayer1 != null) choosePlayer1.stopMusic();
-//                if (battlePage != null) battlePage.stopMusic(); // Jika BattlePage punya musik
+                if (battlePage != null) battlePage.stopMusic();
 
                 dispose();
                 System.exit(0);

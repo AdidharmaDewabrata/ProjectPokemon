@@ -1,6 +1,5 @@
 package panel;
 
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -59,7 +58,6 @@ public class LandingPage extends JPanel {
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
 
-
         // Tambahkan ke LandingPage panel utama
         this.add(panel, BorderLayout.CENTER);
 
@@ -91,7 +89,7 @@ public class LandingPage extends JPanel {
 
     }
     public void startMusic() {
-        stopMusic(); // Pastikan menghentikan jika sudah bermain
+        stopMusic();
 
         Thread musicThread = new Thread(() -> {
             try {
@@ -120,7 +118,7 @@ public class LandingPage extends JPanel {
         musicThread.start();
     }
 
-    // Metode untuk menghentikan musik LandingPage
+
     public void stopMusic() {
         if (clip != null && clip.isRunning()) {
             clip.stop();

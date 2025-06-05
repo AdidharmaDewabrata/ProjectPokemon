@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 
 public class PreBattle extends JPanel {
+    public static final String PREBATTLE_MUSIC = "preBattle.wav";
+    private static Clip clip;
     private Image background, back;
     private JLabel pod1Label;
     private JLabel pod2Label;
@@ -112,6 +114,20 @@ public class PreBattle extends JPanel {
         } else {
             System.err.println("Error: Indeks tidak valid atau Pokemon null untuk Player 2 saat di PreBattle. Indeks: " + p2_idx);
         }
+
+        //kontrol musik otomatis
+        addHierarchyListener(new HierarchyListener() {
+            @Override
+            public void hierarchyChanged(HierarchyEvent e) {
+                if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                    if (isShowing()) {
+                        startMusic();
+                    } else {
+                        stopMusic();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -122,6 +138,44 @@ public class PreBattle extends JPanel {
         } else {
             g.setColor(Color.GRAY);
             g.fillRect(0,0,getWidth(), getHeight());
+        }
+    }
+    public void startMusic() {
+        stopMusic();
+
+        Thread musicThread = new Thread(() -> {
+            try {
+                URL musicUrl = PreBattle.class.getResource(PREBATTLE_MUSIC);
+                if (musicUrl == null) {
+                    System.err.println("File suara musik prebattle tidak ditemukan: " + PREBATTLE_MUSIC);
+                    System.err.println("Lokasi kelas prebattle : " + PreBattle.class.getProtectionDomain().getCodeSource().getLocation());
+                    return;
+                }
+
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicUrl);
+
+                if (clip != null) {
+                    clip.close();
+                }
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                clip.start();
+                System.out.println("prebattle music started.");
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                System.err.println("Terjadi kesalahan saat memutar musik prebattle : " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+        musicThread.start();
+    }
+
+    public void stopMusic() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+            System.out.println("prebattle music stopped.");
         }
     }
 }

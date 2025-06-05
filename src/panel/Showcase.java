@@ -36,7 +36,7 @@ public class Showcase extends JPanel {
         this.setLayout(new BorderLayout());
 
         // Pastikan path ini valid di sistemmu
-        String backgroundPath = "C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\showcase.png";
+        String backgroundPath = "F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemon\\src\\assets\\showcase.png";
         BgPanel bgPanel = new BgPanel(backgroundPath);//manggil kelas yang di atas tadi
         bgPanel.setLayout(new BorderLayout());
         bgPanel.setPreferredSize(new Dimension(1280, 720)); // Ukuran disesuaikan frame
@@ -123,7 +123,7 @@ public class Showcase extends JPanel {
             int j = i;
             pokeBox.addActionListener(e -> {
                 String selectedPokemon = pokeNames.get(j);
-                DetailPokemon detailPanel = new DetailPokemon(selectedPokemon); // <-- lewatkan data
+                DetailPokemon detailPanel = new DetailPokemon(selectedPokemon);
                 cardPanelContainer.add(detailPanel, "panel.DetailPokemon");
                 cardLayout.show(cardPanelContainer, "panel.DetailPokemon");
             });
@@ -185,10 +185,10 @@ public class Showcase extends JPanel {
         stopMusic();
         Thread musicThread = new Thread(() -> {
             try {
-                URL musicUrl = HomePage.class.getResource(HOMEPAGE_MUSIC);
+                URL musicUrl = Showcase.class.getResource(HOMEPAGE_MUSIC);
                 if (musicUrl == null) {
-                    System.err.println("File suara musik Homepage tidak ditemukan: " + HOMEPAGE_MUSIC);
-                    System.err.println("Lokasi kelas HomePage: " + HomePage.class.getProtectionDomain().getCodeSource().getLocation());
+                    System.err.println("File suara musik Showcase tidak ditemukan: " + HOMEPAGE_MUSIC);
+                    System.err.println("Lokasi kelas Showcase: " + Showcase.class.getProtectionDomain().getCodeSource().getLocation());
                     return;
                 }
 
@@ -202,9 +202,9 @@ public class Showcase extends JPanel {
 
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
                 clip.start();
-                System.out.println("Homepage music started.");
+                System.out.println("Showcase music started.");
             } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-                System.err.println("Terjadi kesalahan saat memutar musik Homepage: " + e.getMessage());
+                System.err.println("Terjadi kesalahan saat memutar musik Showcase: " + e.getMessage());
                 e.printStackTrace();
             }
         });
@@ -215,19 +215,7 @@ public class Showcase extends JPanel {
         if (clip != null && clip.isRunning()) {
             clip.stop();
             clip.close();
-            System.out.println("Homepage music stopped.");
+            System.out.println("Showcase music stopped.");
         }
     }
-
-//    // Main method untuk testing
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame("Showcase Page Test");
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            frame.setContentPane(new Showcase());
-//            frame.pack(); // ukur berdasarkan preferred size panel
-//            frame.setLocationRelativeTo(null);
-//            frame.setVisible(true);
-//        });
-//    }
 }

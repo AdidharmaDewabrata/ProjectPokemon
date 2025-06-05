@@ -3,6 +3,8 @@ package panel;
 import pokemon.Pokemon;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
@@ -12,7 +14,7 @@ import javax.sound.sampled.*;
 
 public class ChoosePlayer1 extends JPanel {
     private Image backgroundImage;
-    public static final String CHOOSEPLAYER_MUSIC = "choose_player.wav";
+    public static final String CHOOSEPLAYER_MUSIC = "choosePlayer.wav";
     private static Clip clip;
     static Pokemon[] pokemon = new Pokemon[12];
     private int[] p1pick = new int[2];
@@ -23,7 +25,7 @@ public class ChoosePlayer1 extends JPanel {
     public ChoosePlayer1(CardLayout cardLayout, JPanel cardPanelContainer) {
         Scanner sc;
         this.setLayout(null);
-        back = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\hutanlendir.jpg").getImage();
+        back = new ImageIcon("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemon\\src\\assets\\hutanlendir.jpg").getImage();
 
         //Player 1 label
         JLabel player1 = new JLabel("Player 1");
@@ -36,12 +38,12 @@ public class ChoosePlayer1 extends JPanel {
         add(player1);
 
         //arrow kanan
-        JLabel right = new JLabel(new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\ArRight.png"));
+        JLabel right = new JLabel(new ImageIcon("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemon\\src\\assets\\ArRight.png"));
         right.setBounds(940,300,100,100);
         add(right);
 
         //arrow kiri
-        JLabel left = new JLabel(new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\ArLeft.png"));
+        JLabel left = new JLabel(new ImageIcon("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemon\\src\\assets\\ArLeft.png"));
         left.setBounds(550,300,100,100);
         add(left);
 
@@ -98,8 +100,8 @@ public class ChoosePlayer1 extends JPanel {
             labelz[i] = new JLabel();
             labelz[i].setLayout(null);
             labelz[i].setBounds(500, 500, 600, 200);
-            labelz[i].setOpaque(false); // optional: set true with color for debugging
-            labelz[i].setVisible(false); // initially hidden
+            labelz[i].setOpaque(false);
+            labelz[i].setVisible(false);
             add(labelz[i]);
 
             // Type image label
@@ -221,7 +223,6 @@ public class ChoosePlayer1 extends JPanel {
                 new Animation(p1, pokemonlist[j], "front", 150, 150).start();
                 p1.setBounds(255, 80, 150, 150);
                 show.add(p1);
-                //show.setBackground(Color.decode(pokemon[j].getColor()));
                 p1stats[0] = new JLabel("HP: "+pokemon[j].getHealth());
                 p1stats[1] = new JLabel("ATT: "+pokemon[j].getAttack());
                 p1stats[2] = new JLabel("DEF: "+pokemon[j].getDefense());
@@ -257,12 +258,22 @@ public class ChoosePlayer1 extends JPanel {
                 PreBattle preBattle = new PreBattle(cardLayout, cardPanelContainer, p1pick[0],p1pick[1]);
                 cardPanelContainer.add(preBattle,"panel.PreBattle");
                 cardLayout.show(cardPanelContainer, "panel.PreBattle");
-//                    BattlePage battlePage = new BattlePage(cardLayout, cardPanelContainer,p1pick[0],p1pick[1]);
-//                    cardPanelContainer.add(battlePage,"panel.BattlePage");
-//                    cardLayout.show(cardPanelContainer, "panel.BattlePage");
             }
         });
 
+//kontrol musik otomatis
+        addHierarchyListener(new HierarchyListener() {
+            @Override
+            public void hierarchyChanged(HierarchyEvent e) {
+                if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                    if (isShowing()) {
+                        startMusic();
+                    } else {
+                        stopMusic();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -276,10 +287,10 @@ public class ChoosePlayer1 extends JPanel {
 
         Thread musicThread = new Thread(() -> {
             try {
-                URL musicUrl = HomePage.class.getResource(CHOOSEPLAYER_MUSIC);
+                URL musicUrl = ChoosePlayer1.class.getResource(CHOOSEPLAYER_MUSIC);
                 if (musicUrl == null) {
                     System.err.println("File suara musik chooseplayer tidak ditemukan: " + CHOOSEPLAYER_MUSIC);
-                    System.err.println("Lokasi kelas chooseplayer : " + HomePage.class.getProtectionDomain().getCodeSource().getLocation());
+                    System.err.println("Lokasi kelas chooseplayer : " + ChoosePlayer1.class.getProtectionDomain().getCodeSource().getLocation());
                     return;
                 }
 
@@ -306,8 +317,10 @@ public class ChoosePlayer1 extends JPanel {
         if (clip != null && clip.isRunning()) {
             clip.stop();
             clip.close();
-            System.out.println("Homepage music stopped.");
+            System.out.println("chooseplayer music stopped.");
         }
     }
+
+
 }
 
