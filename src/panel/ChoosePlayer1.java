@@ -38,19 +38,18 @@ public class ChoosePlayer1 extends JPanel {
         add(player1);
 
         //arrow kanan
-        JLabel right = new JLabel(new ImageIcon("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemon\\src\\assets\\ArRight.png"));
+        JLabel right = new JLabel(new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\right.png "));
         right.setBounds(940,300,100,100);
         add(right);
 
         //arrow kiri
-        JLabel left = new JLabel(new ImageIcon("F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemon\\src\\assets\\ArLeft.png"));
+        JLabel left = new JLabel(new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\left.png"));
         left.setBounds(550,300,100,100);
         add(left);
 
         //baca data dari pokemonchara.txt
         File file = new File("pokemonchara.txt");
         String[][] dataPokemon = new String[12][6];
-        Pokemon[] pokemon = new Pokemon[12];
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -76,7 +75,44 @@ public class ChoosePlayer1 extends JPanel {
             int def = Integer.parseInt(dataPokemon[i][4]);
             String c = dataPokemon[i][5];
 
-            pokemon[i] = new Pokemon(s, w, hp, att, def);
+            pokemon[i] = new Pokemon(s, w, hp, att, def, c);
+        }
+
+        File file2 = new File("moves.txt");
+        try (BufferedReader br = new BufferedReader(new FileReader(file2))) {
+            String line;
+            int o = 0, l =0;
+            while ((line = br.readLine()) != null && o < 48) {
+                sc = new Scanner(line);
+                int u = 0;
+                while (sc.hasNext() && u < 4) {
+                    dataMove[l][o][u] = sc.next();
+                    u++;
+                }
+                o++;
+                if(o==4){
+                    l++;o=0;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        int counter=0;
+        int r = 0;
+        for (int i = 0; i < 12; i++) {
+            for (int j = 0; j < 4; j++) {
+                String p = dataMove[i][j][0];
+                String n = dataMove[i][j][1];
+                String t = dataMove[i][j][2];
+                int pwr = Integer.parseInt((dataMove[i][j][3]));
+                move[j] = new Move(p, n, t, pwr);
+                pokemon[r].addMove(move[j]);
+                counter++;
+                if (counter == 4) {
+                    counter = 0;
+                    r++;
+                }
+            }
         }
 
         //ganti pokemon
@@ -100,8 +136,8 @@ public class ChoosePlayer1 extends JPanel {
             labelz[i] = new JLabel();
             labelz[i].setLayout(null);
             labelz[i].setBounds(500, 500, 600, 200);
-            labelz[i].setOpaque(false);
-            labelz[i].setVisible(false);
+            labelz[i].setOpaque(false); // optional: set true with color for debugging
+            labelz[i].setVisible(false); // initially hidden
             add(labelz[i]);
 
             // Type image label
@@ -201,7 +237,7 @@ public class ChoosePlayer1 extends JPanel {
         JLabel p1 = new JLabel();
         JLabel p1name = new JLabel();
         p1name.setFont(new Font("Times New Roman", Font.BOLD, 35));
-        p1name.setBounds(280,15,150,100);
+        p1name.setBounds(240,15,250,100);
         p1name.setVisible(false);
         show.add(p1name);
         JLabel[] p1stats = new JLabel[3];
@@ -222,7 +258,9 @@ public class ChoosePlayer1 extends JPanel {
                 p1name.setText(pokemon[j].getName());
                 new Animation(p1, pokemonlist[j], "front", 150, 150).start();
                 p1.setBounds(255, 80, 150, 150);
+                show.setBackground(Color.decode("#c8e3b8"));
                 show.add(p1);
+                //show.setBackground(Color.decode(pokemon[j].getColor()));
                 p1stats[0] = new JLabel("HP: "+pokemon[j].getHealth());
                 p1stats[1] = new JLabel("ATT: "+pokemon[j].getAttack());
                 p1stats[2] = new JLabel("DEF: "+pokemon[j].getDefense());
@@ -256,24 +294,13 @@ public class ChoosePlayer1 extends JPanel {
             else{
                 p1pick[1] = j;
                 PreBattle preBattle = new PreBattle(cardLayout, cardPanelContainer, p1pick[0],p1pick[1]);
+                System.out.println("ini p1: "+p1pick[0]);
+                System.out.println("ini p2: "+p1pick[1]);
                 cardPanelContainer.add(preBattle,"panel.PreBattle");
                 cardLayout.show(cardPanelContainer, "panel.PreBattle");
             }
         });
 
-//kontrol musik otomatis
-        addHierarchyListener(new HierarchyListener() {
-            @Override
-            public void hierarchyChanged(HierarchyEvent e) {
-                if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
-                    if (isShowing()) {
-                        startMusic();
-                    } else {
-                        stopMusic();
-                    }
-                }
-            }
-        });
     }
 
     @Override
@@ -287,10 +314,10 @@ public class ChoosePlayer1 extends JPanel {
 
         Thread musicThread = new Thread(() -> {
             try {
-                URL musicUrl = ChoosePlayer1.class.getResource(CHOOSEPLAYER_MUSIC);
+                URL musicUrl = HomePage.class.getResource(CHOOSEPLAYER_MUSIC);
                 if (musicUrl == null) {
                     System.err.println("File suara musik chooseplayer tidak ditemukan: " + CHOOSEPLAYER_MUSIC);
-                    System.err.println("Lokasi kelas chooseplayer : " + ChoosePlayer1.class.getProtectionDomain().getCodeSource().getLocation());
+                    System.err.println("Lokasi kelas chooseplayer : " + HomePage.class.getProtectionDomain().getCodeSource().getLocation());
                     return;
                 }
 
@@ -317,10 +344,9 @@ public class ChoosePlayer1 extends JPanel {
         if (clip != null && clip.isRunning()) {
             clip.stop();
             clip.close();
-            System.out.println("chooseplayer music stopped.");
+            System.out.println("Homepage music stopped.");
         }
     }
-
 
 }
 
