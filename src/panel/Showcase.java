@@ -36,7 +36,7 @@ public class Showcase extends JPanel {
         this.setLayout(new BorderLayout());
 
         // Pastikan path ini valid di sistemmu
-        String backgroundPath = "F:\\dv\\college\\code\\Intellij\\Pemlan\\ProjectPokemon\\src\\assets\\showcase.png";
+        String backgroundPath = "C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\showcase.png";
         BgPanel bgPanel = new BgPanel(backgroundPath);//manggil kelas yang di atas tadi
         bgPanel.setLayout(new BorderLayout());
         bgPanel.setPreferredSize(new Dimension(1280, 720)); // Ukuran disesuaikan frame
@@ -123,7 +123,7 @@ public class Showcase extends JPanel {
             int j = i;
             pokeBox.addActionListener(e -> {
                 String selectedPokemon = pokeNames.get(j);
-                DetailPokemon detailPanel = new DetailPokemon(selectedPokemon);
+                DetailPokemon detailPanel = new DetailPokemon(selectedPokemon); // <-- lewatkan data
                 cardPanelContainer.add(detailPanel, "panel.DetailPokemon");
                 cardLayout.show(cardPanelContainer, "panel.DetailPokemon");
             });

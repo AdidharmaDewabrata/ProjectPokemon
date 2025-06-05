@@ -19,7 +19,7 @@ public class HomePage extends JPanel {
 
         //images podium & poopermon
         ImageIcon poopermon = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\headpoopermon.jpg.png");
-        ImageIcon podium = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\headpoopermon.jpg.png");
+        ImageIcon podium = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\podium.png");
         Image pod1 = podium.getImage().getScaledInstance(1450, 850, Image.SCALE_SMOOTH);
         ImageIcon podium1 = new ImageIcon(pod1);
 

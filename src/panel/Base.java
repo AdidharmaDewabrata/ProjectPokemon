@@ -45,7 +45,7 @@ public class Base extends JFrame {
         ChoosePlayer1 choosePlayer1 = new ChoosePlayer1(cardLayout, mainPanel);
         PreBattle preBattle = new PreBattle(cardLayout, mainPanel, 1 , 2);
         BattlePage battlePage = new BattlePage(cardLayout, mainPanel, 1, 2);
-        DetailPokemon detailPokemon = new DetailPokemon(cardLayout, mainPanel);
+        DetailPokemon detailPokemon = new DetailPokemon(cardLayout, mainPanel, Showcase.getSelected());
 
         // Masukkan ke card layout
         mainPanel.add(landingPage, "panel.LandingPage");
