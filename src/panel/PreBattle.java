@@ -24,6 +24,7 @@ public class PreBattle extends JPanel {
         back = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\bg_prebattle.png").getImage();
         setLayout(null);
 
+        
         URL podiumUrl = getClass().getResource("/assets/podium.png");
         ImageIcon podiumIcon = null;
         if (podiumUrl != null) {
@@ -32,29 +33,23 @@ public class PreBattle extends JPanel {
             System.err.println("Podium image not found: /assets/podium.png. Pastikan path di dalam folder resources benar.");
         }
 
-        if (podiumIcon != null && podiumIcon.getImageLoadStatus() == MediaTracker.COMPLETE) {
             Image scaledPodiumImage = podiumIcon.getImage().getScaledInstance(1450, 850, Image.SCALE_SMOOTH);
             ImageIcon scaledPodiumIcon = new ImageIcon(scaledPodiumImage);
 
             pod1Label = new JLabel(scaledPodiumIcon);
-            pod1Label.setBounds(0, -150, 1450, 850);
-            add(pod1Label);
+            pod1Label.setBounds(50, -40, 1450, 850);
 
             pod2Label = new JLabel(scaledPodiumIcon);
-            pod2Label.setBounds(700, -150, 1450, 850);
-            add(pod2Label);
-        } else {
-            System.err.println("Podium icon is null or failed to load. Check path and file existence.");
-        }
+            pod2Label.setBounds(850, -40, 1450, 850);
 
         JButton playButton = new JButton("Play");
         playButton.setForeground(Color.BLACK);
         playButton.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
         playButton.setBackground(Color.decode("#aae6ff"));
-        playButton.setBounds(550, 425, 200, 50);
+        playButton.setBounds(650, 520, 250, 75);
         add(playButton);
         playButton.addActionListener(e -> {
-            BattlePage battlePage = new BattlePage(cardLayout, cardPanelContainer, p1_idx, p2_idx);
+            BattlePage battlePage = new BattlePage(cardLayout, cardPanelContainer, p1, p2);
             cardPanelContainer.add(battlePage, "panel.BattlePage");
             cardLayout.show(cardPanelContainer, "panel.BattlePage");
         });
@@ -65,7 +60,7 @@ public class PreBattle extends JPanel {
         p1_label.setForeground(Color.decode("#fcdc59"));
         p1_label.setBorder(null);
         p1_label.setFont(new Font("Source Sans Pro", Font.BOLD, 50));
-        p1_label.setBounds(205, -30, 540, 200);
+        p1_label.setBounds(245, 100, 540, 200);
         add(p1_label);
 
         JLabel p2_label = new JLabel("Player 2");
@@ -74,45 +69,70 @@ public class PreBattle extends JPanel {
         p2_label.setForeground(Color.decode("#fcdc59"));
         p2_label.setBorder(null);
         p2_label.setFont(new Font("Source Sans Pro", Font.BOLD, 50));
-        p2_label.setBounds(900, -30, 540, 200);
+        p2_label.setBounds(1050, 100, 540, 200);
         add(p2_label);
 
-        if (p1_idx >= 0 && p1_idx < POKEMON_ANIMATION_NAMES.length &&
-                p1_idx < ChoosePlayer1.pokemon.length && ChoosePlayer1.pokemon[p1_idx] != null) {
-
             JLabel pickedPok1Display = new JLabel();
-            try {
-                Animation anim1 = new Animation(pickedPok1Display, POKEMON_ANIMATION_NAMES[p1_idx], "front", 350, 350);
+                Animation anim1 = new Animation(pickedPok1Display, POKEMON_ANIMATION_NAMES[p1], "front", 300, 300);
                 anim1.start();
 
-                pickedPok1Display.setBounds(150, 100, 335, 350);
+                pickedPok1Display.setBounds(200, 250, 300, 300);
                 add(pickedPok1Display);
 
-            } catch (Exception e) {
-                System.err.println("Gagal membuat/memulai animasi untuk Player 1 Pokemon: " + POKEMON_ANIMATION_NAMES[p1_idx]);
-                e.printStackTrace();
-            }
-        } else {
-            System.err.println("Error: Indeks tidak valid atau Pokemon null untuk Player 1 saat di PreBattle. Indeks: " + p1_idx);
-        }
-
-        if (p2_idx >= 0 && p2_idx < POKEMON_ANIMATION_NAMES.length &&
-                p2_idx < ChoosePlayer1.pokemon.length && ChoosePlayer1.pokemon[p2_idx] != null) {
-
             JLabel pickedPok2Display = new JLabel();
-            try {
-                Animation anim2 = new Animation(pickedPok2Display, POKEMON_ANIMATION_NAMES[p2_idx], "front", 350, 350);
+                Animation anim2 = new Animation(pickedPok2Display, POKEMON_ANIMATION_NAMES[p2], "front", 300, 300);
                 anim2.start();
 
-                pickedPok2Display.setBounds(850, 100, 335, 350);
+                pickedPok2Display.setBounds(1000, 250, 300, 300);
                 add(pickedPok2Display);
 
-            } catch (Exception e) {
-                System.err.println("Gagal membuat/memulai animasi untuk Player 2 Pokemon: " + POKEMON_ANIMATION_NAMES[p2_idx]);
-                e.printStackTrace();
+        Pokemon player1 = ChoosePlayer1.pokemon[p1];
+        Pokemon player2 = ChoosePlayer1.pokemon[p2];
+        //label nama pokemon
+        JLabel container = new JLabel(); container.setLayout(null); container.setBounds(215,530, 300, 125);
+        JLabel name1 = new JLabel(player1.getName()); name1.setForeground(Color.decode(player1.getColor())); name1.setBounds(90, 10, 200, 50);
+        name1.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
+        JLabel image1 = new JLabel(player1.getTypeImage(110,80)); container.add(name1); image1.setBounds(0,0,110,80);container.add(image1);
+        setComponentZOrder(container,0);
+        add(container);
+
+        JLabel container2 = new JLabel(); container2.setLayout(null); container2.setBounds(1030,530, 300, 75);
+        JLabel name2 = new JLabel(player2.getName()); name2.setForeground(Color.decode(player2.getColor())); name2.setBounds(90, 10, 200, 50);
+        name2.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
+        JLabel image2 = new JLabel(player2.getTypeImage(110,80)); container2.add(name2); image2.setBounds(0,0,110,80);container2.add(image2);
+        setComponentZOrder(container2,0);
+        add(container2);
+
+
+        //label buat label hp, att, def
+        JLabel[] hp = new JLabel[2];    JLabel[] att = new JLabel[2];    JLabel[] def = new JLabel[2];
+
+        hp[0] = new JLabel("HP : " + player1.getHealth());
+        att[0] = new JLabel("Att : " + player1.getAttack());
+        def[0] = new JLabel("Def : " + player1.getDefense());
+        hp[1] = new JLabel("HP : " + player2.getHealth());
+        att[1] = new JLabel("Att : " + player2.getAttack());
+        def[1] = new JLabel("Def : " + player2.getDefense());
+        int x = 270, y = 625;
+
+        for(int i = 0; i<2; i++) {
+            hp[i].setBounds(x, y, 300, 60);
+            y+=40;
+            att[i].setBounds(x, y, 300, 60);
+            y+=40;
+            def[i].setBounds(x, y, 300, 60);
+            hp[i].setForeground(Color.decode("#fcdc59"));
+            att[i].setForeground(Color.decode("#fcdc59"));
+            def[i].setForeground(Color.decode("#fcdc59"));
+            hp[i].setFont(new Font("Source Sans Pro", Font.BOLD, 30));
+            att[i].setFont(new Font("Source Sans Pro", Font.BOLD, 30));
+            def[i].setFont(new Font("Source Sans Pro", Font.BOLD, 30));
+            add(hp[i]); add(att[i]); add(def[i]);
+            x+=825; y = 625;
             }
-        } else {
-            System.err.println("Error: Indeks tidak valid atau Pokemon null untuk Player 2 saat di PreBattle. Indeks: " + p2_idx);
+
+        add(pod1Label);
+        add(pod2Label);
         }
 
         //kontrol musik otomatis
