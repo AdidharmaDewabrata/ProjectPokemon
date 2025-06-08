@@ -1,6 +1,7 @@
 package panel;
 
 import pokemon.Pokemon;
+import pokemon.Move;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.HierarchyEvent;
@@ -20,8 +21,28 @@ public class ChoosePlayer1 extends JPanel {
     private int[] p1pick = new int[2];
     private Image back;
     private JLabel[] pokemonImage = new JLabel[12], pokemonName = new JLabel[12];
-    private int j = 0, p = 5;;
+    private int j = 0, p = 5; // Hapus titik koma ganda di sini, bukan error tapi good practice
     static boolean flag = true;
+
+    // --- PERBAIKAN UTAMA DI SINI ---
+    // Ubah dataMove menjadi static dan sesuaikan dimensinya untuk 3 moves per Pokemon
+    private static String[][][] dataMove = new String[12][3][4]; // 12 Pokemon, 3 moves per Pokemon, 4 detail per move
+
+    // Getter statis untuk dataMove
+    public static String[][][] getDataMoves() {
+        return dataMove;
+    }
+
+    // Konstruktor default yang tidak digunakan untuk inisialisasi data.
+    // Jika tidak ada kode yang memanggil ChoosePlayer1() tanpa argumen,
+    // sebaiknya dihapus atau dijadikan private untuk mencegah salah penggunaan.
+    public ChoosePlayer1() {
+        // Untuk memastikan dataMove diisi HANYA SEKALI,
+        // kita bisa menambahkan pengecekan di sini, atau lebih baik pastikan
+        // konstruktor ChoosePlayer1(CardLayout, JPanel) adalah satu-satunya jalur inisialisasi.
+        // Untuk saat ini, asumsikan konstruktor utama akan dipanggil pertama kali.
+    }
+
     public ChoosePlayer1(CardLayout cardLayout, JPanel cardPanelContainer) {
         Scanner sc;
         this.setLayout(null);
@@ -38,12 +59,12 @@ public class ChoosePlayer1 extends JPanel {
         add(player1);
 
         //arrow kanan
-        JLabel right = new JLabel(new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\right.png "));
+        JLabel right = new JLabel(new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\ArRight.png "));
         right.setBounds(940,300,100,100);
         add(right);
 
         //arrow kiri
-        JLabel left = new JLabel(new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\left.png"));
+        JLabel left = new JLabel(new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Arleft.png"));
         left.setBounds(550,300,100,100);
         add(left);
 
@@ -78,39 +99,49 @@ public class ChoosePlayer1 extends JPanel {
             pokemon[i] = new Pokemon(s, w, hp, att, def, c);
         }
 
-        File file2 = new File("moves.txt");
-        try (BufferedReader br = new BufferedReader(new FileReader(file2))) {
-            String line;
-            int o = 0, l =0;
-            while ((line = br.readLine()) != null && o < 48) {
-                sc = new Scanner(line);
-                int u = 0;
-                while (sc.hasNext() && u < 4) {
-                    dataMove[l][o][u] = sc.next();
-                    u++;
+        // --- Perbaikan di sini: Pastikan dataMove hanya diisi sekali ---
+        // Jika dataMove sudah terisi (misalnya dari instansiasi sebelumnya),
+        // tidak perlu membaca file lagi.
+        if (dataMove[0][0][0] == null) { // Cek apakah elemen pertama null, menandakan belum terisi
+            File file2 = new File("moves.txt");
+            try (BufferedReader br = new BufferedReader(new FileReader(file2))) {
+                String line;
+                int pokemonIdx = 0; // Index untuk Pokémon saat ini
+                int moveIdx = 0;    // Index untuk move dalam Pokémon saat ini (0-2, karena 3 move)
+
+                while ((line = br.readLine()) != null && pokemonIdx < 12) {
+                    sc = new Scanner(line);
+                    int detailIdx = 0; // Index untuk detail move (power type, name, type, power value)
+                    while (sc.hasNext() && detailIdx < 4) { // Masih mengharapkan 4 detail per baris
+                        dataMove[pokemonIdx][moveIdx][detailIdx] = sc.next();
+                        detailIdx++;
+                    }
+                    moveIdx++; // Pindah ke move berikutnya untuk Pokémon saat ini
+                    // Jika sudah membaca 3 move (indeks 0, 1, 2)
+                    if (moveIdx == 3) {
+                        pokemonIdx++; // Pindah ke Pokémon berikutnya
+                        moveIdx = 0;  // Reset moveIdx untuk Pokémon berikutnya
+                    }
                 }
-                o++;
-                if(o==4){
-                    l++;o=0;
-                }
+            } catch (IOException e) {
+                System.err.println("Error reading moves.txt: " + e.getMessage());
             }
-        } catch (IOException e) {
-            System.err.println(e);
         }
-        int counter=0;
-        int r = 0;
-        for (int i = 0; i < 12; i++) {
-            for (int j = 0; j < 4; j++) {
-                String p = dataMove[i][j][0];
-                String n = dataMove[i][j][1];
-                String t = dataMove[i][j][2];
-                int pwr = Integer.parseInt((dataMove[i][j][3]));
-                move[j] = new Move(p, n, t, pwr);
-                pokemon[r].addMove(move[j]);
-                counter++;
-                if (counter == 4) {
-                    counter = 0;
-                    r++;
+
+
+        // Loop untuk menambahkan move ke setiap objek Pokemon
+        for (int i = 0; i < 12; i++) { // Iterasi untuk setiap Pokemon
+            // Pastikan Pokemon ini belum memiliki move yang ditambahkan sebelumnya
+            // Ini penting jika ChoosePlayer1 bisa dibuat ulang.
+            if (pokemon[i].getMoves().isEmpty()) { // Cek apakah daftar moves kosong
+                for (int k = 0; k < 3; k++) { // Iterasi untuk 3 move setiap Pokemon
+                    // Hati-hati dengan NPE di sini jika dataMove tidak terisi dengan benar
+                    String powerType = dataMove[i][k][0];
+                    String moveName = dataMove[i][k][1];
+                    String moveType = dataMove[i][k][2];
+                    int movePower = Integer.parseInt(dataMove[i][k][3]);
+
+                    pokemon[i].addMove(new Move(powerType, moveName, moveType, movePower));
                 }
             }
         }
@@ -349,4 +380,3 @@ public class ChoosePlayer1 extends JPanel {
     }
 
 }
-

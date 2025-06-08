@@ -15,6 +15,7 @@ public class Showcase extends JPanel {
     private Image backgroundImage;
     public static final String HOMEPAGE_MUSIC = "homepage.wav";
     private static Clip clip;
+    //private String selectedPokemon;
 
     // Subkelas untuk panel dengan latar belakang gambar
     private static class BgPanel extends JPanel {
@@ -31,6 +32,17 @@ public class Showcase extends JPanel {
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
         }
     }
+
+//public String getSelect(){
+//        return selectedPokemon;
+//}
+
+//public static String getSelected(){
+//        Showcase sc = new Showcase();
+//        return sc.getSelect();
+//}
+
+public Showcase() {}
 
     public Showcase(CardLayout cardLayout, JPanel cardPanelContainer) {
         this.setLayout(new BorderLayout());
@@ -59,103 +71,82 @@ public class Showcase extends JPanel {
         scp.setOpaque(false); // biar tembus background
         scp.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        //buat manggil pokemonnya
-        JLabel blastoise = new JLabel();
-        JLabel charizard = new JLabel();
-        JLabel clefable = new JLabel();
-        JLabel dragonite = new JLabel();
-        JLabel galvantula = new JLabel();
-        JLabel glaceon = new JLabel();
-        JLabel infernape = new JLabel();
-        JLabel marowak = new JLabel();
-        JLabel masquerain = new JLabel();
-        JLabel pikachu = new JLabel();
-        JLabel snorlax = new JLabel();
-        JLabel venusaur = new JLabel();
-        new Animation(blastoise, "blastoise", "front", 80, 80).start();
-        new Animation(charizard, "charizard", "front", 80, 80).start();
-        new Animation(clefable, "clefable", "front", 80, 80).start();
-        new Animation(dragonite, "dragonite", "front", 80, 80).start();
-        new Animation(galvantula, "galvantula", "front", 80, 80).start();
-        new Animation(glaceon, "glaceon", "front", 80, 80).start();
-        new Animation(infernape, "infernape", "front", 80, 80).start();
-        new Animation(marowak, "marowak", "front", 80, 80).start();
-        new Animation(masquerain, "masquerain", "front", 80, 80).start();
-        new Animation(pikachu, "pikachu", "front", 80, 80).start();
-        new Animation(snorlax, "snorlax", "front", 80, 80).start();
-        new Animation(venusaur, "venusaur", "front", 80, 80).start();
-
-        // List semua JLabel Pokémon
-        List<JLabel> pokeLabels = Arrays.asList(
-                blastoise, charizard, clefable, dragonite, galvantula, glaceon,
-                infernape, marowak, masquerain, pikachu, snorlax, venusaur
-        );
-
-        // List nama Pokémon buat ditampilin
+        // Buat satu set JLabel Animation di sini dan gunakan kembali
+        // atau buat instance Animation baru di dalam loop jika memang perlu
+        JLabel[] pokeAnimationLabels = new JLabel[12];
         List<String> pokeNames = Arrays.asList(
-                "Blastoise", "Charizard", "Clefable", "Dragonite", "Galvantula",
-                "Glaceon", "Infernape", "Marowak", "Masquerain", "Pikachu", "Snorlax", "Venusaur"
+                "Pikachu", "Charizard", "Blastoise", "Venusaur", "Infernape", "Snorlax",
+                "Clefable", "Masquerain", "Marowak", "Dragonite", "Galvantula", "Glaceon"
         );
+        // Sesuaikan urutan pokeNames dengan urutan pokemon di ChoosePlayer1.pokemon[]
+        // atau pastikan indeksnya cocok. Saya asumsikan urutan di ChoosePlayer1.pokemon adalah
+        // Pikachu, Charizard, Blastoise, Venusaur, Infernape, Snorlax, Clefable, Masquerain, Marowak, Dragonite, Galvantula, Glaceon
 
+        // Inisialisasi JLabel Animation
+        for (int i = 0; i < pokeNames.size(); i++) {
+            pokeAnimationLabels[i] = new JLabel();
+            // Start animation, tapi jangan tampilkan dulu, nanti di DetailPokemon
+            // new Animation(pokeAnimationLabels[i], pokeNames.get(i), "front", 80, 80).start();
+        }
 
-        // Tambahkan gambar ke grid, ini buat kotak backgroudnnya dulu aja
-        for (int i = 0; i < 12; i++) {
-            //buat masukin pokemonnya
-            //dijadiin button biar bisa masuk ke detail dari tiap pokemon
+        // Tambahkan gambar ke grid
+        for (int i = 0; i < pokeNames.size(); i++) {
             JButton pokeBox = new JButton();
             pokeBox.setLayout(new BorderLayout());
             pokeBox.setPreferredSize(new Dimension(150, 150));
             pokeBox.setBackground(Color.decode("#c4cd8e"));
             pokeBox.setFocusPainted(false);
 
-            //buat nama tiap pokemonnya
-            JLabel pokeName = new JLabel(pokeNames.get(i));
-            pokeName.setHorizontalAlignment(SwingConstants.CENTER);
-            pokeName.setFont(new Font("Tahoma", Font.BOLD, 18));
-            pokeName.setForeground(Color.black);
-            pokeBox.add(pokeName, BorderLayout.NORTH);
+            JLabel pokeNameLabel = new JLabel(pokeNames.get(i));
+            pokeNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            pokeNameLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+            pokeNameLabel.setForeground(Color.black);
+            pokeBox.add(pokeNameLabel, BorderLayout.NORTH);
 
-            JLabel pokeLabel = pokeLabels.get(i);
-            pokeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            pokeLabel.setVerticalAlignment(SwingConstants.CENTER);
-            pokeBox.add(pokeLabel, BorderLayout.CENTER);
+            // Tampilkan animasi Pokémon di sini
+            JLabel currentPokeAnimLabel = new JLabel(); // Buat label baru untuk animasi di Showcase
+            // Perbaiki ukuran animasi di Showcase
+            new Animation(currentPokeAnimLabel, pokeNames.get(i), "front", 80, 80).start();
+            currentPokeAnimLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            currentPokeAnimLabel.setVerticalAlignment(SwingConstants.CENTER);
+            pokeBox.add(currentPokeAnimLabel, BorderLayout.CENTER);
 
-            int j = i;
+
+            int j = i; // final index for lambda
             pokeBox.addActionListener(e -> {
-                String selectedPokemon = pokeNames.get(j);
-                DetailPokemon detailPanel = new DetailPokemon(selectedPokemon); // <-- lewatkan data
+                // Di sini, kita langsung panggil DetailPokemon dengan nama Pokémon yang dipilih
+                DetailPokemon detailPanel = new DetailPokemon(cardLayout, cardPanelContainer, pokeNames.get(j));
                 cardPanelContainer.add(detailPanel, "panel.DetailPokemon");
                 cardLayout.show(cardPanelContainer, "panel.DetailPokemon");
             });
 
             scp.add(pokeBox);
         }
-
         // Tambahkan grid ke panel background
         containpoke.add(scp, BorderLayout.CENTER);
-
         bgPanel.add(kotak, BorderLayout.CENTER);
 
         //tombol play sama back
         JButton play = new JButton("Play");
-        //play.setBounds(950, 250, 250, 75);
         play.setBackground(Color.decode("#aae6ff"));
         play.setFont(new Font("Tahoma", Font.BOLD, 40));
 //        bgPanel.add(play);
 
         JButton back = new JButton("Back");
-        //back.setBounds(950, 550, 250, 75);
         back.setBackground(Color.decode("#fcdc59"));
         back.setFont(new Font("Tahoma", Font.BOLD, 40));
 //        bgPanel.add(back);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
-        buttonPanel.setPreferredSize(new Dimension(250, 75));
+        //buttonPanel.setPreferredSize(new Dimension(250, 75));
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS)); // Gunakan BoxLayout untuk vertikal
+        buttonPanel.add(Box.createVerticalGlue()); // Untuk push tombol ke bawah
         buttonPanel.add(play);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 50))); // Jarak antar tombol
         buttonPanel.add(back);
-        bgPanel.add(buttonPanel, BorderLayout.EAST);
-
+        buttonPanel.add(Box.createVerticalGlue()); // Untuk push tombol ke atas
+        bgPanel.add(buttonPanel, BorderLayout.EAST); // Tambahkan buttonPanel ke bagian EAST
 
         play.addActionListener(e -> {
             cardLayout.show(cardPanelContainer, "panel.ChoosePlayer1");

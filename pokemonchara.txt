@@ -1,13 +1,12 @@
-Pikachu ELECTRIC 105 55 40
-Charizard FIRE 156 84 78
-Blastoise WATER 140 82 83
-Clefable FAIRY 120 70 73
-Marowak GROUND 115 65 110
-Dragonite DRAGON 150 85 75
-Snorlax NORMAL 200 70 80
-Infernape FIGHTING 130 79 71
-Venusaur GRASS 145 82 83
-Galvantula BUG 130 77 60
-Masquerain FLYING 120 60 62
-Glaceon ICE 120 60 80
-
+Pikachu ELECTRIC 105 55 40 #fcdc59
+Charizard FIRE 156 84 78 #ff9628
+Blastoise WATER 140 82 83 #0a3b82
+Venusaur GRASS 145 82 83 #51b454
+Infernape FIGHTING 130 79 71 #f23041
+Snorlax NORMAL 200 70 80 #5271ff
+Clefable FAIRY 120 70 73 #e3bec1
+Masquerain FLYING 120 60 62 #aae6ff
+Marowak GROUND 115 65 110 #a65114
+Dragonite DRAGON 150 85 75 #ffbd59
+Galvantula BUG 130 77 60 #fcdc59
+Glaceon ICE 120 60 80 #38b6ff

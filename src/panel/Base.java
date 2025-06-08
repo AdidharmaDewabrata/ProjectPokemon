@@ -13,9 +13,11 @@ public class Base extends JFrame {
     private LandingPage landingPage;
     private HomePage homePage;
     private ChoosePlayer1 choosePlayer1;
-    private Battle battle;
-    private PreBattle preBattle;
-    private Showcase showcase;
+    private Showcase showcase; // Harus diinisialisasi di sini atau sebelum add ke mainPanel
+    // private Battle battle; // Ini tidak diinisialisasi, mungkin tidak perlu di sini
+    // private PreBattle preBattle; // Akan diinisialisasi di ChoosePlayer1
+    // private BattlePage battlePage; // Akan diinisialisasi di PreBattle
+    // private DetailPokemon detailPokemon; // Akan diinisialisasi di Showcase
 
     public Base() {
         this.setTitle("PooperMon");
@@ -38,24 +40,26 @@ public class Base extends JFrame {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        // Daftar halaman
-        LandingPage landingPage = new LandingPage(cardLayout, mainPanel);
-        HomePage homePage = new HomePage(cardLayout, mainPanel);
-        Showcase showcase = new Showcase(cardLayout, mainPanel);
-        ChoosePlayer1 choosePlayer1 = new ChoosePlayer1(cardLayout, mainPanel);
-        PreBattle preBattle = new PreBattle(cardLayout, mainPanel, 1 , 2);
-        BattlePage battlePage = new BattlePage(cardLayout, mainPanel, 1, 2);
-        DetailPokemon detailPokemon = new DetailPokemon(cardLayout, mainPanel, Showcase.getSelected());
+        // Inisialisasi semua panel yang diperlukan di awal
+        landingPage = new LandingPage(cardLayout, mainPanel);
+        homePage = new HomePage(cardLayout, mainPanel);
+        showcase = new Showcase(cardLayout, mainPanel); // Inisialisasi Showcase
+        choosePlayer1 = new ChoosePlayer1(cardLayout, mainPanel); // ChoosePlayer1 akan membaca data statis
 
-        // Masukkan ke card layout
+        // Panel seperti PreBattle, BattlePage, DetailPokemon akan dibuat DYNAMICALLY
+        // saat navigasi diperlukan, karena mereka membutuhkan parameter spesifik.
+        // HAPUS INISIALISASI di sini:
+        // PreBattle preBattle = new PreBattle(cardLayout, mainPanel, 1 , 2);
+        // BattlePage battlePage = new BattlePage(cardLayout, mainPanel, 1, 2);
+        // DetailPokemon detailPokemon = new DetailPokemon(cardLayout, mainPanel, Showcase.getSelected()); // INI PENYEBAB MASALAHNYA
+
+        // Masukkan panel awal ke card layout
         mainPanel.add(landingPage, "panel.LandingPage");
         mainPanel.add(homePage, "panel.HomePage");
         mainPanel.add(showcase, "panel.Showcase");
         mainPanel.add(choosePlayer1, "panel.ChoosePlayer1");
-        mainPanel.add(preBattle, "panel.PreBattle");
-        mainPanel.add(battlePage, "panel.BattlePage");
-        mainPanel.add(showcase, "panel.Showcase");
-        mainPanel.add(detailPokemon, "panel.DetailPokemon");
+        // Hapus penambahan PreBattle, BattlePage, DetailPokemon di sini.
+        // Mereka akan ditambahkan ketika dipanggil oleh ActionListener di panel lain.
 
         // Set tampilan awal
         this.setContentPane(mainPanel);
@@ -68,7 +72,7 @@ public class Base extends JFrame {
                 if (landingPage != null) landingPage.stopMusic();
                 if (homePage != null) homePage.stopMusic();
                 if (choosePlayer1 != null) choosePlayer1.stopMusic();
-                if (battlePage != null) battlePage.stopMusic();
+                //if (battlePage != null) battlePage.stopMusic();
 
                 dispose();
                 System.exit(0);
@@ -84,4 +88,3 @@ public JPanel getMainPanel() {
     return mainPanel;
 }
 }
-

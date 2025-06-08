@@ -11,13 +11,14 @@ import java.awt.event.ActionListener;
 public class BattlePage extends JPanel {
     private Image background; private boolean dead = false;
     private boolean p1Turn = true;
-    private Move[] moveP1 = new Move[4];
-    private Move[] moveP2 = new Move[4];
+    private Move[] moveP1 = new Move[3]; // PERBAIKAN: Hanya 3 moves, bukan 4
+    private Move[] moveP2 = new Move[3]; // PERBAIKAN: Hanya 3 moves, bukan 4
     private JProgressBar[] progressBars = new JProgressBar[2];
-    private String[][][] gerakan = new String[2][4][4];
+    // PERBAIKAN: Dimensi kedua menjadi 3 (untuk 3 moves per Pokemon)
+    private String[][][] gerakan = new String[2][3][4];
 
     public BattlePage(CardLayout cardLayout, JPanel cardPanelContainer, int p1, int p2) {
-        background = new ImageIcon("C:\\Users\\adksp\\Downloads\\6bea12ee9c7b069e8bdcf74726fdd299.jpg").getImage();
+        background = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\panel\\battleForest.jpg").getImage();
         setLayout(null);
 
         JPanel greenBox = new JPanel(null);
@@ -45,19 +46,22 @@ public class BattlePage extends JPanel {
 
         System.out.println(container2.getBounds());
 
+        // --- PERBAIKAN UTAMA #1: Loop untuk mengisi gerakan[] harus 3 kali ---
         for (int i = 0; i <= 1; i++) {
-            int o = p1;
-            if (i == 1) o = p2;
-            for (int j = 0; j < 4; j++) {
-                for (int k = 1; k <= 3; k++) {
-                    gerakan[i][j][k] = ChoosePlayer1.dataMove[o][j][k];
+            int pokemonIndex = (i == 0) ? p1 : p2;
+            for (int j = 0; j < 3; j++) { // PERBAIKAN: Loop hanya 3 kali untuk moves (0, 1, 2)
+                for (int k = 0; k < 4; k++) { // PERBAIKAN: k harus dimulai dari 0 dan kurang dari 4
+                    gerakan[i][j][k] = ChoosePlayer1.getDataMoves()[pokemonIndex][j][k];
                 }
             }
         }
 
+        // --- PERBAIKAN UTAMA #2: Loop untuk tombol serangan P1 (hanya 3 serangan) ---
+        // buttonP1 tetap 4 jika tombol ke-4 untuk HEAL, jika tidak, ubah menjadi 3.
+        // Asumsi tombol ke-4 itu selalu ada dan itu tombol HEAL, tidak terkait dataMove.
         JButton[] buttonP1 = new JButton[4];
         int[][] buttonP1Positions = {{1000, 650}, {1220, 650}, {1000, 760}, {1220, 760}};
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             Type type = Type.valueOf(gerakan[0][i][2]);
             JLabel icon = new JLabel(getTypeImage(type, 110, 80));
             icon.setBounds(-20, 0, 110, 80);
@@ -65,7 +69,7 @@ public class BattlePage extends JPanel {
             name.setBounds(60, 20, 200, 40);
             name.setFont(new Font("Times New Roman", Font.BOLD, 24));
             name.setForeground(Color.white);
-            buttonP1[i] = new JButton();
+            buttonP1[i] = new JButton(); // Ini mengisi tombol serangan (0,1,2)
             buttonP1[i].setLayout(null);
             buttonP1[i].setVisible(true);
             buttonP1[i].add(icon);
@@ -75,6 +79,16 @@ public class BattlePage extends JPanel {
             add(buttonP1[i]);
             setComponentZOrder(buttonP1[i], 0);
         }
+        // Inisialisasi tombol HEAL untuk Player 1 (indeks 3)
+        buttonP1[3] = new JButton("Heal"); // Inisialisasi buttonP1[3]
+        buttonP1[3].setFont(new Font("Times New Roman", Font.BOLD, 24));
+        buttonP1[3].setForeground(Color.white);
+        buttonP1[3].setBackground(Color.decode("#90EE90")); // Warna hijau untuk Heal
+        buttonP1[3].setBounds(buttonP1Positions[3][0], buttonP1Positions[3][1], 200, 90);
+        buttonP1[3].setVisible(true);
+        add(buttonP1[3]);
+        setComponentZOrder(buttonP1[3], 0);
+
 
         JButton[] buttonP2 = new JButton[4];
         int[][] buttonP2Positions = {
@@ -82,7 +96,7 @@ public class BattlePage extends JPanel {
                 {1220, 650},
                 {1000, 760},
                 {1220, 760}};
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             Type type = Type.valueOf(gerakan[1][i][2]);
             JLabel icon = new JLabel(getTypeImage(type, 110, 80));
             icon.setBounds(-20, 0, 110, 80);
@@ -90,9 +104,9 @@ public class BattlePage extends JPanel {
             name.setBounds(60, 20, 200, 40);
             name.setFont(new Font("Times New Roman", Font.BOLD, 24));
             name.setForeground(Color.white);
-            buttonP2[i] = new JButton();
+            buttonP2[i] = new JButton(); // Ini mengisi tombol serangan (0,1,2)
             buttonP2[i].setLayout(null);
-            buttonP2[i].setVisible(false);
+            buttonP2[i].setVisible(false); // Awalnya tidak terlihat untuk P2
             buttonP2[i].add(icon);
             buttonP2[i].add(name);
             buttonP2[i].setBounds(buttonP2Positions[i][0], buttonP2Positions[i][1], 200, 90);
@@ -100,6 +114,16 @@ public class BattlePage extends JPanel {
             add(buttonP2[i]);
             setComponentZOrder(buttonP2[i], 0);
         }
+        // Inisialisasi tombol HEAL untuk Player 2 (indeks 3)
+        buttonP2[3] = new JButton("Heal"); // Inisialisasi buttonP2[3]
+        buttonP2[3].setFont(new Font("Times New Roman", Font.BOLD, 24));
+        buttonP2[3].setForeground(Color.white);
+        buttonP2[3].setBackground(Color.decode("#90EE90")); // Warna hijau untuk Heal
+        buttonP2[3].setBounds(buttonP2Positions[3][0], buttonP2Positions[3][1], 200, 90);
+        buttonP2[3].setVisible(false); // Sembunyikan untuk P2 di awal
+        add(buttonP2[3]);
+        setComponentZOrder(buttonP2[3], 0);
+
 
         JLabel text = new JLabel("Ready...");
         text.setBounds(100, 50, 900, 75);
@@ -123,23 +147,24 @@ public class BattlePage extends JPanel {
         });
         timer.start();
 
-        for (int i = 0; i < 4; i++) {
-            String p = gerakan[0][i][0];
-            String n = gerakan[0][i][1];
-            String a = gerakan[0][i][2];
-            int pwr = Integer.parseInt(gerakan[0][i][3]);
-            moveP1[i] = new Move(p, n, a, pwr);
+        // --- PERBAIKAN #4: Inisialisasi moveP1 dan moveP2 (hanya 3 moves) ---
+        for (int i = 0; i < 3; i++) { // PERBAIKAN: Loop hanya 3 kali
+            String pType = ChoosePlayer1.getDataMoves()[p1][i][0];
+            String n = ChoosePlayer1.getDataMoves()[p1][i][1];
+            String a = ChoosePlayer1.getDataMoves()[p1][i][2];
+            int pwr = Integer.parseInt(ChoosePlayer1.getDataMoves()[p1][i][3]);
+            moveP1[i] = new Move(pType, n, a, pwr);
         }
-        for (int i = 0; i < 4; i++) {
-            String p = gerakan[1][i][0];
-            String n = gerakan[1][i][1];
-            String a = gerakan[1][i][2];
-            int pwr = Integer.parseInt(gerakan[1][i][3]);
-            moveP2[i] = new Move(p, n, a, pwr);
+        for (int i = 0; i < 3; i++) { // PERBAIKAN: Loop hanya 3 kali
+            String pType = ChoosePlayer1.getDataMoves()[p2][i][0];
+            String n = ChoosePlayer1.getDataMoves()[p2][i][1];
+            String a = ChoosePlayer1.getDataMoves()[p2][i][2];
+            int pwr = Integer.parseInt(ChoosePlayer1.getDataMoves()[p2][i][3]);
+            moveP2[i] = new Move(pType, n, a, pwr);
         }
 
         // --- Player 1's Attack Buttons ---
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) { // PERBAIKAN: Loop hanya 3 kali untuk serangan
             int finalI = i;
             buttonP1[i].addActionListener(e -> {
                 if(p1Turn && !dead) {
@@ -153,12 +178,12 @@ public class BattlePage extends JPanel {
 
                     if (player2.getCurrentHealth() <= 0) {
                         text.setText(player2.getName() + " has fainted");
-                        dead = true; // Set dead flag immediately
+                        dead = true;
 
                         Timer deathMessage = new Timer(500, e3 -> {
                             text.setText(player1.getName() + " has won the battle!");
                             Timer nextPage = new Timer(500, e9 ->{
-                                WinPage winPage = new WinPage(cardLayout, cardPanelContainer, p2, "Player 2");
+                                WinPage winPage = new WinPage(cardLayout, cardPanelContainer, p1, "Player 1");
                                 cardPanelContainer.add(winPage, "panel.WinPage");
                                 cardLayout.show(cardPanelContainer,"panel.WinPage");
                             });
@@ -168,26 +193,27 @@ public class BattlePage extends JPanel {
                         deathMessage.setRepeats(false);
                         deathMessage.start();
 
-                    } else { // Only proceed with effectiveness/damage/next turn if not dead
+                    } else {
                         Timer effectivenessTimer = new Timer(500, e1 -> {
                             double effectiveness = getTypeEffectiveness(attackType, defenderType);
                             if (effectiveness > 1.5) {
-                                text.setText("It was super effective!"); // Changed to super effective
+                                text.setText("It was super effective!");
                             } else if (effectiveness == 1.5) {
                                 text.setText("It was effective!");
-                            } else if (effectiveness < 1.0) { // Add not very effective
+                            } else if (effectiveness < 1.0 && effectiveness != 0.0) {
                                 text.setText("It was not very effective...");
-                            } else {
-                                text.setText(""); // Clear text if neutral, or leave current attack text
+                            } else if (effectiveness == 0.0) {
+                                text.setText("It had no effect!");
+                            }
+                            else {
+                                text.setText("");
                             }
 
                             Timer damageTimer = new Timer(500, e2 -> {
                                 text.setText(player2.getName() + " lost " + damage + " health!");
 
-                                // --- NESTED: nextTurn timer starts AFTER damage message ---
                                 Timer nextTurn = new Timer(300,e4 -> {
-                                    text.setText("It's now " + player2.getName() + "'s turn"); // Added apostrophe for possessive
-                                    // Make buttons visible/invisible here
+                                    text.setText("It's now " + player2.getName() + "'s turn");
                                     for (int a = 0; a < 4; a++) {
                                         buttonP1[a].setVisible(false);
                                         buttonP2[a].setVisible(true);
@@ -209,7 +235,6 @@ public class BattlePage extends JPanel {
         // --- Player 1's Heal Button (index 3) ---
         buttonP1[3].addActionListener(e -> {
             if(p1Turn && !dead) {
-                // Heal logic
                 if (player1.getCurrentHealth() == player1.getHealth()) {
                     text.setText(player1.getName() + " is already at full health!");
                 } else {
@@ -223,10 +248,9 @@ public class BattlePage extends JPanel {
                     }
                 }
 
-                // --- Next Turn logic for Heal button (similar nesting for consistency) ---
-                Timer healMessageTimer = new Timer(500, e5 -> { // Timer to show heal message
+                Timer healMessageTimer = new Timer(500, e5 -> {
                     Timer nextTurn = new Timer(300,e4 -> {
-                        text.setText("It's now " + player2.getName() + "'s turn"); // Added apostrophe
+                        text.setText("It's now " + player2.getName() + "'s turn");
                         for(int a = 0; a < 4; a++ ) {
                             buttonP1[a].setVisible(false);
                             buttonP2[a].setVisible(true);
@@ -242,13 +266,13 @@ public class BattlePage extends JPanel {
         });
 
         // --- Player 2's Attack Buttons ---
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) { // PERBAIKAN: Loop hanya 3 kali untuk serangan
             int finalI = i;
             buttonP2[i].addActionListener(e -> {
                 if(!p1Turn && !dead) {
                     Type attackType = Type.valueOf(gerakan[1][finalI][2]);
                     Type defenderType = player1.getType();
-                    int damage = calculateDamage(player2, moveP2[finalI], player1); // Use moveP2 here
+                    int damage = calculateDamage(player2, moveP2[finalI], player1);
                     player1.setCurrentHealth(player1.getCurrentHealth() - damage);
                     progressBars[0].setValue(player1.getCurrentHealth());
 
@@ -256,7 +280,7 @@ public class BattlePage extends JPanel {
 
                     if (player1.getCurrentHealth() <= 0) {
                         text.setText(player1.getName() + " has fainted");
-                        dead = true; // Set dead flag immediately
+                        dead = true;
 
                         Timer deathMessage = new Timer(500, e3 -> {
                             text.setText(player2.getName() + " has won the battle!");
@@ -271,7 +295,7 @@ public class BattlePage extends JPanel {
                         deathMessage.setRepeats(false);
                         deathMessage.start();
 
-                    } else { // Only proceed with effectiveness/damage/next turn if not dead
+                    } else {
                         Timer effectivenessTimer = new Timer(500, e1 -> {
                             double effectiveness = getTypeEffectiveness(attackType, defenderType);
                             if (effectiveness > 1.5) {
@@ -287,10 +311,8 @@ public class BattlePage extends JPanel {
                             Timer damageTimer = new Timer(500, e2 -> {
                                 text.setText(player1.getName() + " lost " + damage + " health!");
 
-                                // --- NESTED: nextTurn timer starts AFTER damage message ---
                                 Timer nextTurn = new Timer(300,e4 -> {
-                                    text.setText("It's now " + player1.getName() + "'s turn"); // Added apostrophe
-                                    // Make buttons visible/invisible here
+                                    text.setText("It's now " + player1.getName() + "'s turn");
                                     for (int a = 0; a < 4; a++) {
                                         buttonP1[a].setVisible(true);
                                         buttonP2[a].setVisible(false);
@@ -312,7 +334,6 @@ public class BattlePage extends JPanel {
         // --- Player 2's Heal Button (index 3) ---
         buttonP2[3].addActionListener(e -> {
             if(!p1Turn && !dead) {
-                // Heal logic
                 if (player2.getCurrentHealth() == player2.getHealth()) {
                     text.setText(player2.getName() + " is already at full health!");
                 } else {
@@ -326,10 +347,9 @@ public class BattlePage extends JPanel {
                     }
                 }
 
-                // --- Next Turn logic for Heal button (similar nesting for consistency) ---
-                Timer healMessageTimer = new Timer(500, e5 -> { // Timer to show heal message
+                Timer healMessageTimer = new Timer(500, e5 -> {
                     Timer nextTurn = new Timer(300,e4 -> {
-                        text.setText("It's now " + player1.getName() + "'s turn"); // Added apostrophe
+                        text.setText("It's now " + player1.getName() + "'s turn");
                         for(int a = 0; a < 4; a++ ) {
                             buttonP1[a].setVisible(true);
                             buttonP2[a].setVisible(false);
@@ -370,18 +390,24 @@ public class BattlePage extends JPanel {
     }
 
     public ImageIcon getTypeImage(Type type, int x, int y) {
-        ImageIcon image = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\assets\\Types\\" + type + ".png");
+        // PERBAIKAN: Perbaiki path gambar latar belakang
+        ImageIcon image = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Types\\" + type + ".png");
         Image scaled = image.getImage().getScaledInstance(x, y, Image.SCALE_SMOOTH);
         return new ImageIcon(scaled);
     }
 
     public static int calculateDamage(Pokemon attacker, Move move, Pokemon defender) {
+        // PERBAIKAN: Gunakan getCurrentHealth() untuk mendapatkan HP saat ini untuk defender.getDefense()
+        // Namun, defense umumnya tidak bergantung pada currentHealth, melainkan base defense stat.
+        // Jika defense stat dihitung berdasarkan health, ini perlu logika lebih lanjut.
+        // Asumsi defender.getDefense() mengembalikan base defense stat.
         double effectiveness = getTypeEffectiveness(move.getType(), defender.getType());
         int damage = (int) ((move.getPower() * attacker.getAttack() / defender.getDefense()) * effectiveness);
         return Math.max(0, damage);
     }
 
-    private static double getTypeEffectiveness(Type attackType, Type defendType) {
+    public static double getTypeEffectiveness(Type attackType, Type defendType) {
+        // ... (kode getTypeEffectiveness tidak berubah) ...
         int attackIndex = attackType.ordinal();
         int defendIndex = defendType.ordinal();
         if (attackIndex < typeChart.length && defendIndex < typeChart[attackIndex].length) {
@@ -390,20 +416,22 @@ public class BattlePage extends JPanel {
         else {return 1.0;}
     }
 
+    // PERBAIKAN: typeChart sudah sesuai dengan 13 tipe yang diberikan
     private static final double[][] typeChart = {
-            {1.0, 0.5, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 0.5, 2.0, 1.0, 1.0},
-            {2.0, 1.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 2.0, 1.0},
-            {0.5, 2.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 0.5, 0.5, 1.0, 2.0, 1.0},
-            {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 1.0, 1.0},
-            {1.0, 2.0, 0.5, 1.0, 0.5, 1.0, 2.0, 1.0, 1.0, 0.5, 1.0, 0.0, 1.0},
-            {1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 0.5, 0.5, 0.5, 1.0, 2.0, 1.0, 1.0},
-            {1.0, 1.0, 2.0, 1.0, 0.5, 2.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0},
-            {1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0},
-            {0.5, 1.0, 2.0, 1.0, 1.0, 0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0},
-            {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 2.0, 1.0, 1.0, 1.0},
-            {0.5, 0.5, 2.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 2.0, 0.5, 2.0, 1.0},
-            {2.0, 1.0, 0.5, 1.0, 2.0, 1.0, 0.0, 1.0, 0.5, 1.0, 1.0, 1.0, 1.0},
-            {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0}
+            //       FIRE  WATR  GRAS  NORM  ELEC  FIGT  FLY   FAIR  BUG   DRAG  ICE   GRND  HEAL
+            /*FIRE*/  {0.5, 0.5, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 0.5, 2.0, 0.5, 1.0}, // FIRE
+            /*WATER*/ {2.0, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 2.0, 1.0}, // WATER
+            /*GRASS*/ {0.5, 2.0, 0.5, 1.0, 1.0, 1.0, 0.5, 1.0, 0.5, 0.5, 2.0, 2.0, 1.0}, // GRASS
+            /*NORMAL*/{1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0}, // NORMAL (Fighting is 2x, Ghost 0x, but no Ghost type here)
+            /*ELEC*/  {1.0, 2.0, 0.5, 1.0, 0.5, 1.0, 2.0, 1.0, 1.0, 0.5, 1.0, 0.0, 1.0}, // ELECTRIC (Ground 0x)
+            /*FIGHT*/ {1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 0.5, 0.5, 0.5, 1.0, 2.0, 1.0, 1.0}, // FIGHTING
+            /*FLY*/   {1.0, 1.0, 2.0, 1.0, 0.5, 2.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0}, // FLYING
+            /*FAIRY*/ {1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0}, // FAIRY (Fighting 2x, Dragon 2x)
+            /*BUG*/   {0.5, 1.0, 2.0, 1.0, 1.0, 0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0}, // BUG
+            /*DRAGON*/{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 2.0, 1.0, 1.0, 1.0}, // DRAGON (Fairy 0.5x, Dragon 2x)
+            /*ICE*/   {0.5, 0.5, 2.0, 1.0, 1.0, 2.0, 2.0, 1.0, 1.0, 2.0, 0.5, 2.0, 1.0}, // ICE
+            /*GROUND*/{2.0, 1.0, 0.5, 1.0, 2.0, 1.0, 0.0, 1.0, 0.5, 1.0, 1.0, 1.0, 1.0}, // GROUND (Flying 0x)
+            /*HEAL*/  {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0}  // HEAL (Asumsi netral untuk semua)
     };
 
     @Override

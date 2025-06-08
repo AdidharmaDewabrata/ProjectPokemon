@@ -1,5 +1,7 @@
 package panel;
 
+import pokemon.Pokemon; //ini
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -24,7 +26,6 @@ public class PreBattle extends JPanel {
         back = new ImageIcon("C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\bg_prebattle.png").getImage();
         setLayout(null);
 
-        
         URL podiumUrl = getClass().getResource("/assets/podium.png");
         ImageIcon podiumIcon = null;
         if (podiumUrl != null) {
@@ -33,14 +34,14 @@ public class PreBattle extends JPanel {
             System.err.println("Podium image not found: /assets/podium.png. Pastikan path di dalam folder resources benar.");
         }
 
-            Image scaledPodiumImage = podiumIcon.getImage().getScaledInstance(1450, 850, Image.SCALE_SMOOTH);
-            ImageIcon scaledPodiumIcon = new ImageIcon(scaledPodiumImage);
+        Image scaledPodiumImage = podiumIcon.getImage().getScaledInstance(1450, 850, Image.SCALE_SMOOTH);
+        ImageIcon scaledPodiumIcon = new ImageIcon(scaledPodiumImage);
 
-            pod1Label = new JLabel(scaledPodiumIcon);
-            pod1Label.setBounds(50, -40, 1450, 850);
+        pod1Label = new JLabel(scaledPodiumIcon);
+        pod1Label.setBounds(50, -40, 1450, 850);
 
-            pod2Label = new JLabel(scaledPodiumIcon);
-            pod2Label.setBounds(850, -40, 1450, 850);
+        pod2Label = new JLabel(scaledPodiumIcon);
+        pod2Label.setBounds(850, -40, 1450, 850);
 
         JButton playButton = new JButton("Play");
         playButton.setForeground(Color.BLACK);
@@ -49,7 +50,7 @@ public class PreBattle extends JPanel {
         playButton.setBounds(650, 520, 250, 75);
         add(playButton);
         playButton.addActionListener(e -> {
-            BattlePage battlePage = new BattlePage(cardLayout, cardPanelContainer, p1, p2);
+            BattlePage battlePage = new BattlePage(cardLayout, cardPanelContainer, p1_idx, p2_idx);
             cardPanelContainer.add(battlePage, "panel.BattlePage");
             cardLayout.show(cardPanelContainer, "panel.BattlePage");
         });
@@ -72,31 +73,39 @@ public class PreBattle extends JPanel {
         p2_label.setBounds(1050, 100, 540, 200);
         add(p2_label);
 
-            JLabel pickedPok1Display = new JLabel();
-                Animation anim1 = new Animation(pickedPok1Display, POKEMON_ANIMATION_NAMES[p1], "front", 300, 300);
-                anim1.start();
+        JLabel pickedPok1Display = new JLabel();
+        Animation anim1 = new Animation(pickedPok1Display, POKEMON_ANIMATION_NAMES[p1_idx], "front", 300, 300);
+        anim1.start();
 
-                pickedPok1Display.setBounds(200, 250, 300, 300);
-                add(pickedPok1Display);
+        pickedPok1Display.setBounds(200, 250, 300, 300);
+        add(pickedPok1Display);
 
-            JLabel pickedPok2Display = new JLabel();
-                Animation anim2 = new Animation(pickedPok2Display, POKEMON_ANIMATION_NAMES[p2], "front", 300, 300);
-                anim2.start();
+        JLabel pickedPok2Display = new JLabel();
+        Animation anim2 = new Animation(pickedPok2Display, POKEMON_ANIMATION_NAMES[p2_idx], "front", 300, 300);
+        anim2.start();
 
-                pickedPok2Display.setBounds(1000, 250, 300, 300);
-                add(pickedPok2Display);
+        pickedPok2Display.setBounds(1000, 250, 300, 300);
+        add(pickedPok2Display);
 
-        Pokemon player1 = ChoosePlayer1.pokemon[p1];
-        Pokemon player2 = ChoosePlayer1.pokemon[p2];
+        Pokemon player1 = ChoosePlayer1.pokemon[p1_idx];
+        Pokemon player2 = ChoosePlayer1.pokemon[p2_idx];
         //label nama pokemon
-        JLabel container = new JLabel(); container.setLayout(null); container.setBounds(215,530, 300, 125);
-        JLabel name1 = new JLabel(player1.getName()); name1.setForeground(Color.decode(player1.getColor())); name1.setBounds(90, 10, 200, 50);
+        JLabel container = new JLabel();
+        container.setLayout(null);
+        container.setBounds(215,530, 300, 125);
+        JLabel name1 = new JLabel(player1.getName());
+        name1.setForeground(Color.decode(player1.getColor()));
+        name1.setBounds(90, 10, 200, 50);
         name1.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
-        JLabel image1 = new JLabel(player1.getTypeImage(110,80)); container.add(name1); image1.setBounds(0,0,110,80);container.add(image1);
+        JLabel image1 = new JLabel(player1.getTypeImage(110,80));
+        container.add(name1);
+        image1.setBounds(0,0,110,80);
+        container.add(image1);
         setComponentZOrder(container,0);
         add(container);
 
-        JLabel container2 = new JLabel(); container2.setLayout(null); container2.setBounds(1030,530, 300, 75);
+        JLabel container2 = new JLabel();
+        container2.setLayout(null); container2.setBounds(1030,530, 300, 75);
         JLabel name2 = new JLabel(player2.getName()); name2.setForeground(Color.decode(player2.getColor())); name2.setBounds(90, 10, 200, 50);
         name2.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
         JLabel image2 = new JLabel(player2.getTypeImage(110,80)); container2.add(name2); image2.setBounds(0,0,110,80);container2.add(image2);
@@ -129,11 +138,10 @@ public class PreBattle extends JPanel {
             def[i].setFont(new Font("Source Sans Pro", Font.BOLD, 30));
             add(hp[i]); add(att[i]); add(def[i]);
             x+=825; y = 625;
-            }
+        }
 
         add(pod1Label);
         add(pod2Label);
-        }
 
         //kontrol musik otomatis
         addHierarchyListener(new HierarchyListener() {
@@ -148,6 +156,8 @@ public class PreBattle extends JPanel {
                 }
             }
         });
+
+
     }
 
     @Override
@@ -160,6 +170,7 @@ public class PreBattle extends JPanel {
             g.fillRect(0,0,getWidth(), getHeight());
         }
     }
+
     public void startMusic() {
         stopMusic();
 
@@ -199,3 +210,4 @@ public class PreBattle extends JPanel {
         }
     }
 }
+

@@ -1,0 +1,12 @@
+Jolly,Speed        // Untuk Pikachu
+Adamant,Attack     // Untuk Charizard
+Modest,Special Attack // Untuk Blastoise
+Timid,Speed        // Untuk Venusaur
+Adamant,Attack     // Untuk Infernape
+Relaxed,Defense    // Untuk Snorlax
+Calm,Special Defense // Untuk Clefable
+Timid,Speed        // Untuk Masquerain
+Adamant,Attack     // Untuk Marowak
+Jolly,Speed        // Untuk Dragonite
+Timid,Speed        // Untuk Galvantula
+Modest,Special Attack // Untuk Glaceon
