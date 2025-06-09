@@ -5,6 +5,7 @@ import pokemon.Move;
 import pokemon.Type;
 import panel.BattlePage; // Impor BattlePage untuk mengakses typeChart
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -12,12 +13,16 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.sound.sampled.*;
 
 public class DetailPokemon extends JPanel {
     private String pokeName;
+    public static final String HOMEPAGE_MUSIC = "homepage.wav";
+    private static Clip clip;
     private static final String TYPE_ICON_PATH = "C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Types\\";
     private static final String STAT_ICON_PATH = "C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\Icons\\";
     private static final String ARROW_ICON_PATH = "C:\\Users\\asma\\IdeaProjects\\ProjectPokemon\\src\\assets\\";
@@ -361,5 +366,57 @@ public class DetailPokemon extends JPanel {
         bgPanel.add(backButton);
 
         this.add(bgPanel, BorderLayout.CENTER);
+
+        //kontrol musik otomatis
+        addHierarchyListener(new HierarchyListener() {
+            @Override
+            public void hierarchyChanged(HierarchyEvent e) {
+                if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                    if (isShowing()) {
+                        startMusic();
+                    } else {
+                        stopMusic();
+                    }
+                }
+            }
+        });
+    }
+    public void startMusic() {
+        stopMusic();
+
+        Thread musicThread = new Thread(() -> {
+            try {
+                URL musicUrl = HomePage.class.getResource(HOMEPAGE_MUSIC);
+                if (musicUrl == null) {
+                    System.err.println("File suara musik Homepage tidak ditemukan: " + HOMEPAGE_MUSIC);
+                    System.err.println("Lokasi kelas HomePage: " + HomePage.class.getProtectionDomain().getCodeSource().getLocation());
+                    return;
+                }
+
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicUrl);
+
+                if (clip != null) {
+                    clip.close();
+                }
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                clip.start();
+                System.out.println("Homepage music started.");
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                System.err.println("Terjadi kesalahan saat memutar musik Homepage: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+        musicThread.start();
+    }
+
+    public void stopMusic() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+            System.out.println("Homepage music stopped.");
+        }
     }
 }

@@ -3,10 +3,18 @@ import pokemon.Move;
 import pokemon.Pokemon;
 import pokemon.Type;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 public class BattlePage extends JPanel {
     private Image background; private boolean dead = false;
@@ -16,6 +24,8 @@ public class BattlePage extends JPanel {
     private JProgressBar[] progressBars = new JProgressBar[2];
     // PERBAIKAN: Dimensi kedua menjadi 3 (untuk 3 moves per Pokemon)
     private String[][][] gerakan = new String[2][3][4];
+    public static final String BATTLE_MUSIC = "battlePage.wav";
+    private static Clip clip;
 
     public BattlePage(CardLayout cardLayout, JPanel cardPanelContainer, int p1, int p2) {
         background = new ImageIcon("C:\\Users\\adksp\\IdeaProjects\\ProjectPokemon\\src\\panel\\battleForest.jpg").getImage();
@@ -363,6 +373,90 @@ public class BattlePage extends JPanel {
                 healMessageTimer.start();
             }
         });
+
+        //kontrol musik otomatis
+        addHierarchyListener(new HierarchyListener() {
+            @Override
+            public void hierarchyChanged(HierarchyEvent e) {
+                if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                    if (isShowing()) {
+                        startMusic();
+                    } else {
+                        stopMusic();
+                    }
+                }
+            }
+        });
+
+    }
+
+    private void playSoundEffect(String soundFilePath) {
+        try {
+            URL soundUrl = getClass().getResource(soundFilePath);
+            AudioInputStream audioInputStream;
+            if (soundUrl == null) {
+                File soundFile = new File(soundFilePath);
+                if (!soundFile.exists()) {
+                    System.err.println("Sound effect file not found: " + soundFilePath);
+                    return;
+                }
+                audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            } else {
+                InputStream audioSrc = getClass().getResourceAsStream(soundFilePath);
+                InputStream bufferedIn = new BufferedInputStream(audioSrc);
+                audioInputStream = AudioSystem.getAudioInputStream(bufferedIn);
+            }
+
+            Clip sfxClip = AudioSystem.getClip();
+            sfxClip.open(audioInputStream);
+            sfxClip.addLineListener(event -> {
+                if (LineEvent.Type.STOP == event.getType()) {
+                    event.getLine().close();
+                }
+            });
+            sfxClip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void startMusic() {
+        stopMusic(); // Hentikan musik yang mungkin sedang berjalan
+
+        Thread musicThread = new Thread(() -> {
+            try {
+                // Pastikan file "battlePage.wav" ada di folder yang sama dengan file .class
+                // atau di dalam folder resources yang benar.
+                URL musicUrl = BattlePage.class.getResource(BATTLE_MUSIC);
+                if (musicUrl == null) {
+                    System.err.println("File suara musik tidak ditemukan: " + BATTLE_MUSIC);
+                    return;
+                }
+
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicUrl);
+
+                if (clip != null) {
+                    clip.close();
+                }
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+
+                clip.loop(Clip.LOOP_CONTINUOUSLY); // Mainkan berulang-ulang
+                clip.start();
+            } catch (Exception e) {
+                System.err.println("Terjadi kesalahan saat memutar musik: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+        musicThread.start();
+    }
+
+    public void stopMusic() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+            System.out.println("Musik dihentikan.");
+        }
     }
 
     private JLabel createPokemonContainer(Pokemon player, int index, int x, int y, int py) {
@@ -439,4 +533,5 @@ public class BattlePage extends JPanel {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
     }
+
 }
